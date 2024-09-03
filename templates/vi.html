@@ -1,0 +1,224 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ja">-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">-->
+<!--    <title>K_process</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vi.css')}}">-->
+
+<!--</head>-->
+
+<!--<body>-->
+<!--    <div class="top-image-area">-->
+<!--        <header>-->
+<!--            <ul>-->
+<!--                <li><a href="/" class="btn2">Home</a></li>-->
+<!--                <li><a href="{{ url_for('cut') }}" class="btn4">NewCUT</a></li>-->
+<!--                <li><a href="/" class="btn4">AddCUT</a></li>-->
+<!--                <li><a href="/" class="btn4">SP</a></li>-->
+<!--                <li><a href="/" class="btn4">SD</a></li>-->
+<!--                <li><a href="/" class="btn4">SC</a></li>-->
+<!--                <li><a href="/" class="btn4">SH</a></li>-->
+<!--                <li><a href="/" class="btn4">SEG</a></li>-->
+<!--                <li><a href="{{ url_for('vi') }}" class="btn4">VIS</a></li>-->
+<!--            </ul>-->
+<!--        </header>-->
+<!--    </div>-->
+{% extends "base.html" %}
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vi.css')}}">
+{% endblock %}
+{% block content %}
+
+    <div class="tab">
+        <p id="tabs">
+            <a href="#tab1">MAIN</a>
+            <a href="#tab2">DATA</a>
+        </p>
+        <div><input type="submit" form="myForm" value="SAVE" class="saveB"></div>
+    </div>
+
+    <h1>Visual Inspection Sheet</h1>
+
+    <div id="tabbody">
+    <section id="tab1">
+    <form id="myForm" action="/vi" method="post" onsubmit="return saveDate()">
+        <div class="info">
+            <div class="info-1">
+                <div>
+                    <input type="datetime-local" id="processDay1" name="processDay1" required>
+                    <label for="man1">製造</label>
+                    <select id="man1" name="man1" required>
+                        <option value="" disabled selected hidden>選択</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="datetime-local" id="processDay2" name="processDay2">
+                    <label for="man2">品保</label>
+                    <select id="man2" name="man2"></select>
+                </div>
+            </div>
+            <div>
+                <img class="icon" id="qr" src="{{ url_for('static',filename='ca.svg')}}" onclick="onClickQR()">
+                <canvas id="canvas" hidden></canvas>
+            </div>
+            <div class="info-2">
+                <label for="lotno" >LotNo.</label>
+                <input type="text" id="lotno" name="lotno" required>
+                <label for="kind">品名</label>
+                <input type="text" id="kind" name="kind">
+                <button type="button" class="btn" id="changeLength-button" onclick="changeLength()">切</button>
+            </div>
+
+            <div class="info-3">
+                <label for="weight">実重量</label>
+                <input type="text" inputmode="decimal" id="weight" name="weight" placeholder="※小数第1_kg">
+                <label for="length">全長</label>
+                <input type="text" inputmode="numeric" pattern="\d*" id="length" name="length" placeholder="mm" required>
+                <label for="loss">不良部</label>
+                <input type="text" inputmode="numeric" pattern="\d*" id="loss" name="loss" placeholder="mm">
+            </div>
+        </div>
+
+
+        <div class="operationButton">
+            <label for="memo" onclick="memoLevel()">メモ</label>
+            <input type="text" id="memo" name="memo">
+            <div class="operationButton2">
+                <button type="button" class="btn" id="input-button" onclick="handText()">文</button>
+                <button type="button" class="btn" id="write-button" onclick="hand()">手</button>
+                <button type="button" class="btn" id="del-button" onclick="del()">del</button>
+                <button type="button" id="undo-button">戻</button>
+            </div>
+        </div>
+
+
+        <div class="canvas-div">
+            <canvas id="vis_canvas"></canvas>
+        </div>
+
+
+        <table class="memo"><tr>
+           <td> <table>
+                <tr><td>
+                    <button type="button" class="btn active" id="b1" onclick="kinds(1)">○</button>
+                    <text>Bu:Bubble</text>
+                    <text id="1">0</text>
+                </td></tr>
+                <tr><td>
+                    <button type="button" class="btn" id="b2" onclick="kinds(2)">△</button>
+                    <text>:ままこ</text>
+                    <text id="2">0</text>
+                </td></tr>
+                <tr><td>
+                    <button type="button" class="btn" id="b3" onclick="kinds(3)">×</button>
+                    <text>TB:Tornade Bubble</text>
+                    <text id="3">0</text>
+                </td></tr>
+                <tr><td>
+                    <button type="button" class="btn" id="b4" onclick="kinds(4)">□</button>
+                    <text>LB:Laminate Bubble</text>
+                    <text id="4">-</text>
+                </td></tr>
+                <tr><td>
+                    <button type="button" class="btn" id="b5" onclick="kinds(5)">/</button>
+                    <text>ミシン目</text>
+                    <text id="5">-</text>
+                </td></tr>
+            </table></td>
+
+            <td><table>
+                <tr><td>
+                    <button type="button" class="btn" id="b6" onclick="kinds(6)">●</button>
+                    <text>IP:Inside Pit(内クボミ)</text>
+                    <text id="6">-</text>
+                </td></tr>
+               <tr><td>
+                    <button type="button" class="btn" id="b7" onclick="kinds(7)">▼</button>
+                    <text>OP:Outside Pit(外クボミ)</text>
+                    <text id="7">-</text>
+                </td></tr>
+               <tr><td>
+                    <button type="button" class="btn" id="b8" onclick="kinds(8)">■</button>
+                    <text>In:Indusion(異物)</text>
+                    <text id="8">-</text>
+                </td></tr>
+               <tr><td>
+                    <button type="button" class="btn" id="b9" onclick="kinds(9)">▲</button>
+                    <text>Sc:Scratch(キズ)</text>
+                    <text id="9">-</text>
+                </td></tr>
+               <tr><td>
+                    <button type="button" class="btn" id="b10" onclick="kinds(10)">◎</button>
+                    <text>Co:Convex(HFマーク)</text>
+                    <text id="10">-</text>
+                </td></tr>
+            </table></td>
+
+            <td><table>
+                <tr><td>
+                    <button type="button" class="btn" id="b11" onclick="kinds(11)">★</button>
+                    <text>Ch:Chipping(カケ、ヒビ)</text>
+                    <text id="11">-</text>
+                </td></tr>
+               <tr><td>
+                    <button type="button" class="btn" id="b12" onclick="kinds(12)">☆</button>
+                    <text>GM:GringMark(外研キズ)</text>
+                    <text id="12">-</text>
+                </td></tr>
+               <tr><td>
+                    <button type="button" class="btn" id="b13" onclick="kinds(13)">|//|</button>
+                    <text>HM:HoningMark</text>
+                    <text id="13">-</text>
+                </td></tr>
+               <tr><td>
+                    <button type="button" class="btn" id="b14" onclick="kinds(14)">|xx|</button>
+                    <text>NG:NonGroundZone(外削残)</text>
+                    <text id="14">-</text>
+                </td></tr>
+               <tr><td>
+                    <button type="button" class="btn" id="b15" onclick="kinds(15)">◀</button>
+                    <text>NF:NonFinishedZone(内削残)</text>
+                    <text id="15">-</text>
+                </td></tr>
+            </table></td>
+
+        </tr></table>
+    </form>
+    </section>
+
+    <section id="tab2">
+        <div id="users">
+            <table id="usersTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>processDay1</th>
+                        <th>man1</th>
+                        <th>processDay2</th>
+                        <th>man2</th>
+                        <th>lotno</th>
+                        <th>kind</th>
+                        <th>weight</th>
+                        <th>length</th>
+                        <th>loss</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    </div>
+{% endblock %}
+{% block script %}
+<script src="{{ url_for('static',filename='vi.js')}}"></script>
+{% endblock %}
+<!--<script src="{{ url_for('static',filename='jquery-3.6.1.min.js')}}"></script>-->
+<!--<script src="{{ url_for('static',filename='jsQR.js')}}"></script>-->
+<!--<script src="{{ url_for('static',filename='qr-code.js')}}"></script>-->
+<!--<script src="{{ url_for('static',filename='vi.js')}}"></script>-->
+
+<!--</body>-->
+<!--</html>-->

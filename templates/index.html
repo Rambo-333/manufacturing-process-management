@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <title>K_process</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css')}}">
+</head>
+<body>
+    <div class="top-image-area">
+        <header>
+            <ul>
+                <li><a href="/" class="btn2">Home</a></li>
+                <li><a href="{{ url_for('cut') }}" class="btn4">NewCUT</a></li>
+                <li><a href="{{ url_for('add_cut') }}" class="btn4">AddCUT</a></li>
+                <li><a href="{{ url_for('sp') }}" class="btn4">SP</a></li>
+                <li><a href="/" class="btn4">SD</a></li>
+                <li><a href="/" class="btn4">SC</a></li>
+                <li><a href="{{ url_for('sh') }}" class="btn4">SH</a></li>
+                <li><a href="/" class="btn4">SEG</a></li>
+                <li><a href="{{ url_for('vi') }}" class="btn4">VIS</a></li>
+            </ul>
+        </header>
+    </div>
+<div class="index">
+    <h1>K Process</h1>
+    <h2>---INDEX---</h2>
+    <p><a href="{{ url_for('cut') }}">▶新規CUT</a></p>
+    <p><a href="{{ url_for('add_cut') }}">▶追加カット</a></p>
+    <p><a href="{{ url_for('sp') }}">▶粗外周研削工程(SP)</a></p>
+    <p><a href="/">▶粗内周研削工程(SD)</a></p>
+    <p><a href="/">▶精外周研削工程(SC)</a></p>
+    <p><a href="{{ url_for('sh') }}">▶精内周研削工程(SH)</a></p>
+    <p><a href="/">▶セグメントカット工程</a></p>
+    <p><a href="{{ url_for('vi') }}">▶Visual_Inspection</a></p>
+    <p><a href="/">＠一覧</a></p>
+ </div>
+</body>
+</html>

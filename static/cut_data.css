@@ -1,0 +1,30 @@
+
+body{
+    font-family:"Helvetice Neue",Arial,"Hiragino kaku Gothic ProN",Meiryo, sans-serif;
+    color:#696969;
+    margin: 33px;
+}
+
+.btn{
+    padding: 5px 20px;
+    background: gray;
+    color: #ffffff;
+    border-radius;
+}
+
+table,td,th {
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-top: 50px;
+    border-collapse: collapse;
+    border: 1px solid #000;
+    text-align: center;
+}
+
+.head{
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    padding: 20px;
+    background: #FFF;
+}

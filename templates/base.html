@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <title>K_process</title>
+    {% block link %}{% endblock %}
+</head>
+
+<body>
+    <div class="top-image-area">
+        <header>
+            <ul>
+                <li><a href="/" class="btn2">Home</a></li>
+                <li><a href="{{ url_for('cut') }}" class="btn4">NewCUT</a></li>
+                <li><a href="{{ url_for('add_cut') }}" class="btn4">AddCUT</a></li>
+                <li><a href="{{ url_for('sp') }}" class="btn4">SP</a></li>
+                <li><a href="/" class="btn4">SD</a></li>
+                <li><a href="/" class="btn4">SC</a></li>
+                <li><a href="{{ url_for('sh') }}" class="btn4">SH</a></li>
+                <li><a href="/" class="btn4">SEG</a></li>
+                <li><a href="{{ url_for('vi') }}" class="btn4">VIS</a></li>
+            </ul>
+        </header>
+    </div>
+    {% block content %} {% endblock %}
+
+<script src="{{ url_for('static',filename='jquery-3.6.1.min.js')}}"></script>
+<script src="{{ url_for('static',filename='jsQR.js')}}"></script>
+<script src="{{ url_for('static',filename='qr-code.js')}}"></script>
+{% block script %}{% endblock %}
+
+</body>
+</html>
+

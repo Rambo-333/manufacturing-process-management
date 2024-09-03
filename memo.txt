@@ -1,0 +1,23 @@
+
+csv_import(既存テーブル）---------------------
+
+ sqlite>.mode csv
+ sqlite>.import ./test.csv テーブル名
+
+ ※csv1行目はデータから(columns名なし)
+ ※test.csvのtestはファイル名
+
+
+csv_output---------------------
+
+ sqlite>.mode csv
+ sqlite>.output test.csv
+ sqlite>select * from  テーブル名;
+
+
+ ※test.csvのtestはファイル名
+
+
+delete---------------------
+
+ sqlite>delete from テーブル名 where カラム名 不等号 条件
