@@ -1,21 +1,24 @@
-import pickle
-
-from flask import Flask, redirect, render_template, request, url_for, jsonify, make_response
-import base64
+# 標準ライブラリのインポート
 import os
+import pickle
+import base64
+import json
+
+# 外部ライブラリや自作モジュールのインポート
+from flask import Flask, redirect, render_template, request, url_for, jsonify, make_response
 from app.models.cut import NewCut
 from app.models.addcut import AddCut
 from app.models.sp import SP
 from app.models.vi import VIS
 import settings
-import json
 
 app = Flask(__name__, template_folder='../../templates', static_folder='../../static')
 
 #----------------------------------------------------------------------
 class WebServer(object):
     def start(self, debug=False):
-        app.run(host='192.168.11.3', port=settings.PORT, ssl_context=('ssl.crt', 'ssl.key'), threaded=True, debug=debug)
+        app.run(debug=True, host='0.0.0.0', port=5050)
+
 
 # class WebServer(object):
 #     def start():
@@ -23,6 +26,7 @@ class WebServer(object):
 
 #----------------------------------------------------------------------
 
+# Webサーバーを起動
 server = WebServer()
 
 
@@ -127,24 +131,12 @@ def seg():
 @app.route("/vi", methods=['GET', 'POST'])
 def vi():
     if request.method == 'POST':
-        # リクエストフォーム処理
-        if 'image' in request.form:
-            data_url = request.form['image']
-            username = request.form['lotno']
-            # データURLからヘッダーを取り除く
-            header, encoded = data_url.split(",", 1)
-            data = base64.b64decode(encoded)
-            # 保存先のフォルダを指定
-            save_dir = 'c:/Users/Development/deployCheck/visImage'
-            #save_dir = 'c:/Users/Development/webapp/visImage'
-            # ファイル名を指定（ここではユーザーネームを使用）
-            filename = f'{username}.jpg'
-            # ファイルを保存
-            with open(os.path.join(save_dir, filename), 'wb') as f:
-                f.write(data)
+        if 'image' in form_data:
+            handle_post_request(request.form)
         data_list = request.form
         VIS.get_or_create(data_list)
         return render_template('vi.html')
+
     elif request.method == 'GET' and request.args.get('input'):
         nocheck = request.args.get('input')
         if nocheck == 'showData':
@@ -153,6 +145,21 @@ def vi():
             c_list, data = VIS.read_data_one(nocheck)
         return jsonify({'result1': c_list, 'result2': data})
     return render_template('vi.html')
+
+
+def handle_post_request(form_data):
+    image_data_url = form_data['image']
+    lot_number = form_data['lotno']
+    # データURLからヘッダーを取り除く
+    header, encoded = image_data_url.split(",", 1)
+    data = base64.b64decode(encoded)
+    # 保存先のフォルダを設定ファイルから読み込む
+    save_dir = get_save_directory()
+    # ファイル名を指定（ここではユーザーネームを使用）
+    save_dir = 'c:/Users/Development/deployCheck/visImage'
+    # ファイルを保存
+    with open(os.path.join(save_dir, filename), 'wb') as f:
+        f.write(data)
 
 
 
