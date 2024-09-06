@@ -131,12 +131,11 @@ def seg():
 @app.route("/vi", methods=['GET', 'POST'])
 def vi():
     if request.method == 'POST':
-        if 'image' in form_data:
+        if 'image' in request.form:
             handle_post_request(request.form)
         data_list = request.form
         VIS.get_or_create(data_list)
         return render_template('vi.html')
-
     elif request.method == 'GET' and request.args.get('input'):
         nocheck = request.args.get('input')
         if nocheck == 'showData':
@@ -146,17 +145,16 @@ def vi():
         return jsonify({'result1': c_list, 'result2': data})
     return render_template('vi.html')
 
-
 def handle_post_request(form_data):
     image_data_url = form_data['image']
     lot_number = form_data['lotno']
     # データURLからヘッダーを取り除く
     header, encoded = image_data_url.split(",", 1)
     data = base64.b64decode(encoded)
-    # 保存先のフォルダを設定ファイルから読み込む
-    save_dir = get_save_directory()
-    # ファイル名を指定（ここではユーザーネームを使用）
+    # ファイル名を指定
     save_dir = 'c:/Users/Development/deployCheck/visImage'
+    # ファイル名を指定（ここではユーザーネームを使用）
+    filename = f'{lot_number}.jpg'
     # ファイルを保存
     with open(os.path.join(save_dir, filename), 'wb') as f:
         f.write(data)

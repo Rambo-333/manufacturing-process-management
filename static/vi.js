@@ -175,7 +175,7 @@ canvasElement.addEventListener('touchstart', function(event) {
     }else if(!switch_del && isDrawing){
         //手書きテキスト
         if(userInput){
-             let user = window.prompt("入力して下さい。")
+            let user = window.prompt("入力して下さい。")
             if(user !== "" && user !== null){
                 currentIndex_hand++;
                 shapebox_hand.push({ x, y, type: user, line: currentIndex_hand });
@@ -291,16 +291,16 @@ function drawShape(x,y,kinds_shape){
 // 戻るボタンのクリックイベントの処理
 const undoButton = document.getElementById("undo-button");
     undoButton.addEventListener("click", function() {
-      if (currentIndex >= 0 && !isDrawing) {
-        let shape = shapebox[currentIndex];
-        shapes_count(shape.shapes - 1,-1);
-        currentIndex--;
-        redrawCanvas();
-      }else if(currentIndex_hand >= 0 && isDrawing){
-        currentIndex_hand--;
-        shapebox_hand = shapebox_hand.filter(data => data.line !== currentIndex_hand+1);
-        redrawCanvas();
-      }
+        if (currentIndex >= 0 && !isDrawing) {
+            let shape = shapebox[currentIndex];
+            shapes_count(shape.shapes - 1,-1);
+            currentIndex--;
+            redrawCanvas();
+        }else if(currentIndex_hand >= 0 && isDrawing){
+            currentIndex_hand--;
+            shapebox_hand = shapebox_hand.filter(data => data.line !== currentIndex_hand+1);
+            redrawCanvas();
+    }
 });
 
 
@@ -530,14 +530,14 @@ document.documentElement.addEventListener('dblclick',function(e) {
 });
 //ピッチアウト禁止
 document.documentElement.addEventListener("touchstart", function(e) {
-  if (e.touches && e.touches.length > 1) {
+    if (e.touches && e.touches.length > 1) {
     e.preventDefault();
-  }
+    }
 }, {passive: false});
 document.documentElement.addEventListener("touchmove", function(e) {
-  if (e.touches && e.touches.length > 1) {
+    if (e.touches && e.touches.length > 1) {
     e.preventDefault();
-  }
+    }
 }, {passive: false});
 
 
@@ -702,7 +702,7 @@ async function showUsers(showData){
                     '<td>' +  user.man1 + '</td>' +
                     '<td>' +  (user.processDay2 === "" ? '':formUpdatedAtData2) + '</td>' +
                     '<td>' +  user.man2 + '</td>' +
-//                    '<td onclick="lotDatas(\'' + user.lotno + '\')" style="background-color: gray;">' + user.lotno + '</td>' +
+                    //'<td onclick="lotDatas(\'' + user.lotno + '\')" style="background-color: gray;">' + user.lotno + '</td>' +
                     '<td onclick="lotDatas(\'' + user.lotno + '\')" style="' + (user.man2 === "***" ? 'background-color: yellow;':'background-color: gray;') +'">' + user.lotno + '</td>' +
                     '<td>' + user.kind + '</td>' +
                     '<td>' + (user.weight === 0.0 ? '-':user.weight.toFixed(1)) + '</td>' +
@@ -732,9 +732,9 @@ function changeTab() {
         page.style.display = page.id === targetid ? "block" : "none";
     });
   // ▼クリックされたタブを前面に表示する
-  tabs.forEach(function(tab) {
+    tabs.forEach(function(tab) {
     tab.style.zIndex = tab === this ? "10" : "0";
-  }, this);
+    }, this);
 
   //▼タブ2がクリックされた場合にshowUsers関数を呼び出す/画面固定の切り替え
     if (targetid === 'tab2'){
@@ -744,12 +744,12 @@ function changeTab() {
         document.body.style.overflow = 'hidden';
     }
 
-  // ▼ページ遷移しないようにfalseを返す
-  return false;
+// ▼ページ遷移しないようにfalseを返す
+    return false;
 }
 // ▼すべてのタブに対して、クリック時にchangeTab関数が実行されるよう指定する
 tabs.forEach(function(tab) {
-  tab.onclick = changeTab;
+    tab.onclick = changeTab;
 });
 
 // ▼最初は先頭のタブを選択
@@ -813,37 +813,37 @@ kind2.addEventListener('change', () => {
 });
 
 (function() {
-  'use strict';
+    'use strict';
 
-  function delegateEvent(selector, type, listener, options) {
+    function delegateEvent(selector, type, listener, options) {
     if (options == null) options = false;
     document.addEventListener(type, evt => {
-      for (let elem = evt.target; elem && elem !== document; elem = elem.parentNode) {
-        if (elem.matches(selector)) return listener.call(elem, evt);
-      }
+        for (let elem = evt.target; elem && elem !== document; elem = elem.parentNode) {
+            if (elem.matches(selector)) return listener.call(elem, evt);
+        }
     }, options);
-  }
+    }
 
-  delegateEvent('input', 'keydown', evt => {
+    delegateEvent('input', 'keydown', evt => {
     if (evt.key === 'Enter') evt.preventDefault();
-  });
+    });
 }());
 
 
 //enterキーによるサブミット防止
 (function() {
-  'use strict';
+    'use strict';
 
-  function delegateEvent(selector, type, listener, options) {
+    function delegateEvent(selector, type, listener, options) {
     if (options == null) options = false;
     document.addEventListener(type, evt => {
-      for (let elem = evt.target; elem && elem !== document; elem = elem.parentNode) {
+        for (let elem = evt.target; elem && elem !== document; elem = elem.parentNode) {
         if (elem.matches(selector)) return listener.call(elem, evt);
-      }
+        }
     }, options);
-  }
+    }
 
-  delegateEvent('input', 'keydown', evt => {
+    delegateEvent('input', 'keydown', evt => {
     if (evt.key === 'Enter') evt.preventDefault();
-  });
+    });
 }());
