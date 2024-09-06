@@ -160,6 +160,10 @@ def handle_post_request(form_data):
         f.write(data)
 
 
+@app.route("/vad_INS")
+def vad_INS():
+    return render_template('vad_INS.html')
+
 
 @app.route("/get_workers", methods=['GET'])
 def get_workers():
