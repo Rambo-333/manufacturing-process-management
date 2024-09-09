@@ -17,42 +17,46 @@
     <div id="tabbody">
     <section id="tab1">
     <form id="myForm" action="/cut" method="post" onsubmit="return saveDate()">
-        <div class="infoAll">
-            <div class="info-1">
+        <div class="info">
+            <div class="qr">
+                <img class="icon" id="qr" src="{{ url_for('static',filename='ca.svg')}}" onclick="onClickQR()">
+                <canvas id="canvas" hidden></canvas>
+            </div>
+            <div>
+                <label for="processDay">日付</label>
                 <input type="datetime-local" id="processDay" name="processDay" required>
+            <div>
                 <label for="man">担当</label>
                 <select id="man" name="man" required>
                     <option value="" disabled selected hidden>選択</option>
                 </select>
             </div>
-
-            <div class="qr">
-                <img class="icon" id="qr" src="{{ url_for('static',filename='ca.svg')}}" onclick="onClickQR()">
-                <canvas id="canvas" hidden></canvas>
-            </div>
-
-            <div class="info-2">
+            <div>
                 <label for="lotno">lotno</label>
                 <input type="text" id="lotno" name="lotno" required>
+
+            </div>
+            <div>
                 <label for="kind">品種</label>
                 <input type="text" id="kind" name="kind" required>
             </div>
-
-            <div class="info-3">
+            <div>
                 <label for="length">全長</label>
                 <input type="text" inputmode="numeric" pattern="\d*" id="length" name="length" placeholder="mm" onchange="calculate()" required>
+            </div>
+            <div>
                 <label for="weight">重量</label>
                 <input type="text" inputmode="decimal" id="weight" name="weight"  placeholder="※小数第1_kg" required>
             </div>
-
-            <div class="OD">
+            <div>
                 <label for="Min_OD">最小</label>
                 <input type="text" inputmode="decimal" id="Min_OD" name="Min_OD" placeholder="mm">
+            </div>
+            <div>
                 <label for="Max_OD">最大</label>
                 <input type="text" inputmode="decimal" id="Max_OD" name="Max_OD" placeholder="mm">
             </div>
-
-            <div class="info-4">
+            <div>
                 <label for="memo">メモ</label>
                 <textarea id="memo" name="memo"></textarea>
             </div>

@@ -11,6 +11,7 @@
     <div class="top-image-area">
         <header>
             <ul>
+                <!--ナビゲーションメニュー-->
                 <li><a href="/" class="btn2">Home</a></li>
                 <li><a href="{{ url_for('cut') }}" class="btn4">NewCUT</a></li>
                 <li><a href="{{ url_for('add_cut') }}" class="btn4">AddCUT</a></li>
@@ -25,6 +26,7 @@
     </div>
     {% block content %} {% endblock %}
 
+<!-- スクリプトの読み込み -->
 <script src="{{ url_for('static',filename='jquery-3.6.1.min.js')}}"></script>
 <script src="{{ url_for('static',filename='jsQR.js')}}"></script>
 <script src="{{ url_for('static',filename='qr-code.js')}}"></script>
