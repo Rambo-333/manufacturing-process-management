@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>K_process</title>
     {% block link %}{% endblock %}
 </head>
@@ -10,6 +10,7 @@
 <body>
     <div class="top-image-area">
         <header>
+        <nav>
             <ul>
                 <!--ナビゲーションメニュー-->
                 <li><a href="/" class="btn2">Home</a></li>
@@ -21,7 +22,9 @@
                 <li><a href="{{ url_for('sh') }}" class="btn4">SH</a></li>
                 <li><a href="/" class="btn4">SEG</a></li>
                 <li><a href="{{ url_for('vi') }}" class="btn4">VIS</a></li>
+                <li><a href="{{ url_for('vad_ins') }}" class="btn4">vad_INS</a></li>
             </ul>
+        </nav>
         </header>
     </div>
     {% block content %} {% endblock %}

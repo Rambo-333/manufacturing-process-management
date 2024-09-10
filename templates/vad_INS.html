@@ -1,7 +1,7 @@
 
 {% extends "base.html" %}
 {% block link %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vad_INS.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vad_ins.css')}}">
 {% endblock %}
 {% block content %}
     <div class="tab">
@@ -9,14 +9,14 @@
             <a href="#tab1">MAIN</a>
             <a href="#tab2">DATA</a>
         </p>
-        <div><input type="submit" form="myForm" value="SAVE" class="saveB"></div>
+        <div><input type="submit" form="" value="SAVE" class="save-button"></div>
     </div>
 
     <h1>VAD 最終検査</h1>
 
     <div id="tabbody">
     <section id="tab1">
-    <form id="myForm" action="/cut" method="post" onsubmit="return saveDate()">
+    <form id="myForm" action="/vad_INS" method="post" onsubmit="return saveDate()">
         <div class="info">
             <div class="qr">
                 <img class="icon" id="qr" src="{{ url_for('static',filename='ca.svg')}}" onclick="onClickQR()">
@@ -93,6 +93,6 @@
 {% endblock %}
 
 {% block script %}
-<script src="{{ url_for('static',filename='cut.js')}}"></script>
+<script src="{{ url_for('static',filename='vad_ins.js')}}"></script>
 {% endblock %}
 
