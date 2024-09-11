@@ -47,7 +47,7 @@ function saveDate(){
     if(formElement.reportValidity()){
         event.preventDefault();
         //送信
-        fetch('/vad_INS',{
+        fetch('/vad_ins',{
             method: 'POST',
             body:formData})
         .then(res => {
@@ -63,44 +63,42 @@ function saveDate(){
     }
 };
 
-// //DBから入力LotNoがあるか検索。LotNo有：データをdownload
-// $("#lotno").change(function(){
-//     const noCheck = document.getElementById("lotno").value;
-//     if(noCheck){
-//         checkDB(noCheck);
-//     }else{
-//         location.reload();
-//     }
-// });
-// async function checkDB(noCheck){
-//     try {
-//         const response = await fetch(`/vad_INS?input=${noCheck}`,{
-//             method: 'GET'
-//         });
-//         if (response.ok){
-//             var lotDatas = await response.json();
-//             console.log('response-ok',lotDatas);
-//             var resultData1 = lotDatas.result1;
-//             var resultData2 = lotDatas.result2;
-//             if (resultData2.length){
-//                 //データ読み込み※DBにデータがる場合
-//                 for (let i=3 ; i < resultData1.length ; i++){
-//                     document.getElementById(resultData1[i]).value = resultData2[i];
-//                 }
-//                 //編集の場合は日付をクリアし、編集日時にする。
-//                 //※データ移行後の修正が必要なため
-//                 document.getElementById("processDay").value = '';
-//                 //品種イベント発火させる
-//                 var event = new Event('change');
-//                 document.getElementById("kind").dispatchEvent(event);
-//             }
-//         }else{
-//             console.error('リクエストエラー');
-//         }
-//     } catch (error) {
-//         console.error('error',error);
-//     }
-// }
+//DBから入力LotNoがあるか検索。LotNo有：データをdownload
+$("#lotno").change(function(){
+    const noCheck = document.getElementById("lotno").value;
+    if(noCheck){
+        checkDB(noCheck);
+    }else{
+        location.reload();
+    }
+});
+async function checkDB(noCheck){
+    try {
+        const response = await fetch(`/vad_ins?input=${noCheck}`,{
+            method: 'GET'
+        });
+        if (response.ok){
+            var lotDatas = await response.json();
+            console.log('response-ok',lotDatas);
+            var resultData1 = lotDatas.result1;
+            var resultData2 = lotDatas.result2;
+            if (resultData2.length){
+                //データ読み込み※DBにデータがる場合
+                for (let i=3 ; i < resultData1.length ; i++){
+                    document.getElementById(resultData1[i]).value = resultData2[i];
+                }
+                //編集の場合は日付をクリアし、編集日時にする。
+                //※データ移行後の修正が必要なため
+                document.getElementById("processDay").value = '';
+                //品種イベント発火させる
+            }
+        }else{
+            console.error('リクエストエラー');
+        }
+    } catch (error) {
+        console.error('error',error);
+    }
+}
 
 //データ取得
 async function showUsers(showData){
@@ -129,6 +127,8 @@ async function showUsers(showData){
                     '<td>' + user.kind + '</td>' +
                     '<td>' + user.length + '</td>' +
                     '<td>' + user.weight + '</td>' +
+                    '<td>' + user.ODmin + '</td>' +
+                    '<td>' + user.ODmax + '</td>' +
                     '<td>' + user.memo + '</td>' +
                     '</tr>';
                 usersTableBody.innerHTML += row;

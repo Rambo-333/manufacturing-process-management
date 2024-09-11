@@ -10,6 +10,7 @@ from app.models.cut import NewCut
 from app.models.addcut import AddCut
 from app.models.sp import SP
 from app.models.vi import VIS
+from app.models.vad_ins import vad_INS
 import settings
 
 app = Flask(__name__, template_folder='../../templates', static_folder='../../static')
@@ -162,6 +163,18 @@ def handle_post_request(form_data):
 
 @app.route("/vad_ins")
 def vad_ins():
+    if request.method == 'POST':
+        # リクエストフォーム処理
+        data_list = request.form
+        vad_INS.get_or_create(data_list)
+        return render_template('vad_ins.html')
+    elif request.method == 'GET' and request.args.get('input'):
+        nocheck = request.args.get('input')
+        if nocheck == 'showData':
+            c_list, data = vad_INS.read_data()
+        else:
+            c_list, data = vad_INS.read_data_one(nocheck)
+        return jsonify({'result1': c_list, 'result2': data})
     return render_template('vad_ins.html')
 
 
