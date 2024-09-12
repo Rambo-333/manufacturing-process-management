@@ -161,7 +161,7 @@ def handle_post_request(form_data):
         f.write(data)
 
 
-@app.route("/vad_ins")
+@app.route("/vad_ins", methods=['GET', 'POST'])
 def vad_ins():
     if request.method == 'POST':
         # リクエストフォーム処理

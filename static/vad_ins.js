@@ -84,13 +84,9 @@ async function checkDB(noCheck){
             var resultData2 = lotDatas.result2;
             if (resultData2.length){
                 //データ読み込み※DBにデータがる場合
-                for (let i=3 ; i < resultData1.length ; i++){
+                for (let i=5 ; i < resultData1.length ; i++){
                     document.getElementById(resultData1[i]).value = resultData2[i];
                 }
-                //編集の場合は日付をクリアし、編集日時にする。
-                //※データ移行後の修正が必要なため
-                document.getElementById("processDay").value = '';
-                //品種イベント発火させる
             }
         }else{
             console.error('リクエストエラー');
@@ -103,7 +99,7 @@ async function checkDB(noCheck){
 //データ取得
 async function showUsers(showData){
     try {
-        const response = await fetch(`/vad_INS?input=${showData}`,{
+        const response = await fetch(`/vad_ins?input=${showData}`,{
             method: 'GET'
         });
         if (response.ok){
@@ -127,8 +123,8 @@ async function showUsers(showData){
                     '<td>' + user.kind + '</td>' +
                     '<td>' + user.length + '</td>' +
                     '<td>' + user.weight + '</td>' +
-                    '<td>' + user.ODmin + '</td>' +
-                    '<td>' + user.ODmax + '</td>' +
+                    '<td>' + user.Min_OD + '</td>' +
+                    '<td>' + user.Max_OD + '</td>' +
                     '<td>' + user.memo + '</td>' +
                     '</tr>';
                 usersTableBody.innerHTML += row;
@@ -161,7 +157,7 @@ function changeTab() {
 
   //▼タブ2がクリックされた場合にshowUsers関数を呼び出す/画面固定の切り替え
     if (targetid === 'tab2'){
-        // showUsers('showData');
+        showUsers('showData');
         document.body.style.overflow = 'visible';
     }else{
         document.body.style.overflow = 'hidden';

@@ -9,14 +9,14 @@
             <a href="#tab1">MAIN</a>
             <a href="#tab2">DATA</a>
         </p>
-        <div><input type="submit" form="" value="SAVE" class="save-button"></div>
+        <div><input type="submit" form="myForm" value="SAVE" class="save-button"></div>
     </div>
 
     <h1>VAD 最終検査</h1>
 
     <div id="tabbody">
     <section id="tab1">
-    <form id="myForm" action="/vad_INS" method="post" onsubmit="return saveDate()">
+    <form id="myForm" action="/vad_ins" method="post" onsubmit="return saveDate()">
         <div class="info">
             <div class="qr">
                 <img class="icon" id="qr" src="{{ url_for('static',filename='ca.svg')}}" onclick="onClickQR()">
@@ -42,7 +42,7 @@
             </div>
             <div>
                 <label for="length">全長</label>
-                <input type="text" inputmode="numeric" pattern="\d*" id="length" name="length" placeholder="mm" onchange="calculate()" required>
+                <input type="text" inputmode="numeric" pattern="\d*" id="length" name="length" placeholder="mm" required>
             </div>
             <div>
                 <label for="weight">重量</label>
