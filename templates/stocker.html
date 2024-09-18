@@ -1,0 +1,71 @@
+
+{% extends "base.html" %}
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='stocker.css')}}">
+{% endblock %}
+{% block content %}
+    <div class="tab">
+        <p id="tabs">
+            <a href="#tab1">MAIN</a>
+            <a href="#tab2">DATA</a>
+        </p>
+        <div><input type="submit" form="" value="SAVE" class="save-button"></div>
+    </div>
+
+    <h1>ストッカー</h1>
+
+    <table id="userForm">
+        <tr>
+            <th>棚No</th>
+            <th>LotNo</th>
+            <th>品種</th>
+            <th>状態</th>
+            <th>備考</th>
+        </tr>
+    </table>
+
+    <script type="text/javascript">
+        function addRows(numRows) {
+            var table = document.getElementById('userForm');
+
+            for (var i = 1; i <= numRows; i++) {
+                var row = table.insertRow(-1); // テーブルの最後に行を追加
+                for (var j = 0; j < 5; j++) {
+                    var cell = row.insertCell(j); // 新しいセルを追加
+                    if (j === 0) {
+                        cell.textContent = `2-1-${i}`; // 連Noのセルにテキストを設定
+                        cell.classList.add('no-input'); // 幅をテキスト幅に設定
+                        cell.addEventListener('click', function() {
+                            this.classList.toggle('highlight'); // クリックで色を切り替え
+                        });
+                    } else if (j === 3) {
+                        var select = document.createElement('select'); // select要素を作成
+                        var option1 = document.createElement('option');
+                        option1.value = '通常品';
+                        option1.text = '通常品';
+                        var option2 = document.createElement('option');
+                        option2.value = '保留品';
+                        option2.text = '保留品';
+                        select.appendChild(option1);
+                        select.appendChild(option2);
+                        cell.appendChild(select); // セルにselect要素を追加
+                    } else {
+                        var input = document.createElement('input'); // input要素を作成
+                        input.type = 'text';
+                        cell.appendChild(input); // セルにinput要素を追加
+                    }
+                }
+            }
+        }
+
+        // 必要な行数を指定して関数を呼び出す
+        addRows(22);
+    </script>
+
+
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static',filename='vad_ins.js')}}"></script>
+{% endblock %}
+

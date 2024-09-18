@@ -1,0 +1,102 @@
+body {
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212; /* ダークモード背景色 */
+    color: #f5f5f5; /* テキストの色をライトグレーに */
+}
+
+/* ナビゲーションメニュー */
+header {
+    height: 55px;
+    width: 100%;
+    text-align: center;
+    background: linear-gradient(135deg, #1f4037 0%, #99f2c8 100%); /* 近未来的なグラデーション */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header a {
+    color: #ffffff; /* 明るいテキスト色 */
+    padding: 15px 3px;
+    display: inline-block;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+ul li {
+    margin: 0 10px;
+}
+
+/* タブ */
+#tabs a {
+    display: inline-block;
+    border: 1px solid #99f2c8; /* グラデーションの色 */
+    border-radius: 0.75em 0.75em 0 0;
+    padding: 0.75em 1.618em; /* フィボナッチ数のパディング */
+    text-decoration: none;
+    color: #e0e0e0;
+    background-color: #333; /* 背景色 */
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#tabs a:hover {
+    background-color: #99f2c8; /* ホバー時の背景色 */
+    color: #1a1a1a; /* ホバー時のテキスト色 */
+}
+
+/* タブの位置 */
+.tab {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding: 0 30px;
+}
+
+.save-button {
+    border-radius: 50%;
+    background-color: #99f2c8; /* ボタンの背景色 */
+    color: #1a1a1a; /* ボタンのテキスト色 */
+    padding: 0.75em 1.618em; /* フィボナッチ数のパディング */
+    font-weight: bold;
+    font-size: 15px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.save-button:hover {
+    background-color: #1f4037; /* ホバー時の背景色 */
+    color: #ffffff; /* ホバー時のテキスト色 */
+}
+
+h1 {
+    margin-top: 0;
+    text-align: center;
+    color: #99f2c8; /* タイトルの色 */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+input, select {
+    width: 100%;
+    box-sizing: border-box;
+}
+.no-input {
+    width: auto;
+    cursor: pointer;
+}
+.highlight {
+    color: red;
+}

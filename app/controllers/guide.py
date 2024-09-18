@@ -36,6 +36,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route("/stocker", methods=['GET', 'POST'])
+def stocker():
+    return render_template('stocker.html')
+
+
 #  cut_process
 # ###########################################
 # 新規カット工程
