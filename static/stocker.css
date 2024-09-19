@@ -80,23 +80,48 @@ h1 {
     color: #99f2c8; /* タイトルの色 */
 }
 
+/* コンテナのスタイル */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+/* テーブルのスタイル */
 table {
     width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
     border-collapse: collapse;
 }
+
+/* テーブルヘッダーとセルのスタイル */
 th, td {
-    border: 1px solid black;
+    border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
-input, select {
-    width: 100%;
-    box-sizing: border-box;
+
+/* テーブルヘッダーの背景色 */
+th {
+    background-color: #973232;
+    white-space: nowrap;
 }
-.no-input {
+
+th:first-child{
     width: auto;
-    cursor: pointer;
 }
-.highlight {
-    color: red;
+
+
+/* メディアクエリでレスポンシブデザインを実現 */
+@media (min-width: 768px) {
+    .container {
+        flex-wrap: nowrap;
+    }
+
+    table {
+        width: 45%;
+    }
 }
+

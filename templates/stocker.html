@@ -14,52 +14,65 @@
 
     <h1>ストッカー</h1>
 
-    <table id="userForm">
-        <tr>
-            <th>棚No</th>
-            <th>LotNo</th>
-            <th>品種</th>
-            <th>状態</th>
-            <th>備考</th>
-        </tr>
-    </table>
+    <div class="container">
+        <table id="leftTable">
+            <thead>
+                <tr>
+                    <th>製品No</th>
+                    <th>LotNo</th>
+                    <th>品名</th>
+                    <th>数量</th>
+                    <th>備考</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- JavaScriptで行が追加されます -->
+            </tbody>
+        </table>
+        <table id="rightTable">
+            <thead>
+                <tr>
+                    <th>棚No</th>
+                    <th>LotNo</th>
+                    <th>品種</th>
+                    <th>状態</th>
+                    <th>備考</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- JavaScriptで行が追加されます -->
+            </tbody>
+        </table>
+    </div>
 
     <script type="text/javascript">
-        function addRows(numRows) {
-            var table = document.getElementById('userForm');
 
-            for (var i = 1; i <= numRows; i++) {
-                var row = table.insertRow(-1); // テーブルの最後に行を追加
-                for (var j = 0; j < 5; j++) {
-                    var cell = row.insertCell(j); // 新しいセルを追加
-                    if (j === 0) {
-                        cell.textContent = `2-1-${i}`; // 連Noのセルにテキストを設定
-                        cell.classList.add('no-input'); // 幅をテキスト幅に設定
-                        cell.addEventListener('click', function() {
-                            this.classList.toggle('highlight'); // クリックで色を切り替え
-                        });
-                    } else if (j === 3) {
-                        var select = document.createElement('select'); // select要素を作成
-                        var option1 = document.createElement('option');
-                        option1.value = '通常品';
-                        option1.text = '通常品';
-                        var option2 = document.createElement('option');
-                        option2.value = '保留品';
-                        option2.text = '保留品';
-                        select.appendChild(option1);
-                        select.appendChild(option2);
-                        cell.appendChild(select); // セルにselect要素を追加
-                    } else {
-                        var input = document.createElement('input'); // input要素を作成
-                        input.type = 'text';
-                        cell.appendChild(input); // セルにinput要素を追加
-                    }
-                }
+        document.addEventListener('DOMContentLoaded', function() {
+            const leftTable = document.getElementById('leftTable').getElementsByTagName('tbody')[0];
+            const rightTable = document.getElementById('rightTable').getElementsByTagName('tbody')[0];
+
+            for (let i = 22; i >= 1; i--) {
+                addRow(leftTable, `2-1-${i}`);
+                addRow(rightTable, `1-1-${i}`);
             }
-        }
+        });
 
-        // 必要な行数を指定して関数を呼び出す
-        addRows(22);
+        function addRow(table, productNo) {
+            const newRow = table.insertRow();
+
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+            const cell5 = newRow.insertCell(4);
+
+            cell1.innerHTML = productNo;
+            // cell1.innerHTML = `<input type="text" name="productNo" value="${productNo}">`;
+            cell2.innerHTML = '<input type="text" name="lotNo">';
+            cell3.innerHTML = '<input type="text" name="productName">';
+            cell4.innerHTML = '<input type="number" name="quantity">';
+            cell5.innerHTML = '<input type="text" name="remarks">';
+        }
     </script>
 
 
