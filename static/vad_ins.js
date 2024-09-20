@@ -182,23 +182,6 @@ function lotDatas(lotData){
     document.getElementById("lotno").dispatchEvent(event);
 }
 
-(function() {
-    'use strict';
-
-    function delegateEvent(selector, type, listener, options) {
-        if (options == null) options = false;
-        document.addEventListener(type, evt => {
-            for (let elem = evt.target; elem && elem !== document; elem = elem.parentNode) {
-                if (elem.matches(selector)) return listener.call(elem, evt);
-            }
-        }, options);
-    }
-
-    delegateEvent('input', 'keydown', evt => {
-        if (evt.key === 'Enter') evt.preventDefault();
-    });
-}());
-
 
 //操作設定
 // ---------------------------------
