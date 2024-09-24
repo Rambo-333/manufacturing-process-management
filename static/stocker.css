@@ -80,60 +80,6 @@ h1 {
     color: #99f2c8; /* タイトルの色 */
 }
 
-/* コンテナのスタイル */
-.container {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    padding: 10px;
+.container{
+    text-align: center;
 }
-
-/* テーブルのスタイル */
-table {
-    width: 49%;
-    margin-bottom: 10px;
-    border-collapse: collapse;
-}
-
-/* テーブルヘッダーとセルのスタイル */
-th, td {
-    border: 1px solid #ddd;
-    padding: 4px;
-    text-align: left;
-}
-
-/* テーブルヘッダーの背景色 */
-th {
-    background-color: #4CAF50;
-    color: white;
-}
-
-/* テーブルセルの背景色 */
-th {
-    background-color: #f2f2f2;
-    color: #333;
-}
-
-
-#leftTable th:nth-child(1),
-#leftTable th:nth-child(1){
-    white-space: nowrap;
-}
-
-#rightTable th:nth-child(1),
-#rightTable th:nth-child(1){
-    white-space: nowrap;
-}
-
-
-/* メディアクエリでレスポンシブデザインを実現 */
-@media (min-width: 768px)and(max-width: 1024px) {
-    .container {
-        flex-wrap: row;
-    }
-
-    table {
-        width: 48%;
-    }
-}
-

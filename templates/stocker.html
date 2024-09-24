@@ -21,12 +21,12 @@
                     <th>棚No</th>
                     <th>LotNo</th>
                     <th>品名</th>
-                    <th>数量</th>
+                    <th>状態</th>
                     <th>備考</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- JavaScriptで行が追加されます -->
+                <!-- JavaScriptで行が追加 -->
             </tbody>
         </table>
         <table id="rightTable">
@@ -40,41 +40,10 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- JavaScriptで行が追加されます -->
+                <!-- JavaScriptで行が追加 -->
             </tbody>
         </table>
     </div>
-
-    <script type="text/javascript">
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const leftTable = document.getElementById('leftTable').getElementsByTagName('tbody')[0];
-            const rightTable = document.getElementById('rightTable').getElementsByTagName('tbody')[0];
-
-            for (let i = 22; i >= 1; i--) {
-                addRow(leftTable, `2-1-${i}`);
-                addRow(rightTable, `1-1-${i}`);
-            }
-        });
-
-        function addRow(table, productNo) {
-            const newRow = table.insertRow();
-
-            const cell1 = newRow.insertCell(0);
-            const cell2 = newRow.insertCell(1);
-            const cell3 = newRow.insertCell(2);
-            const cell4 = newRow.insertCell(3);
-            const cell5 = newRow.insertCell(4);
-
-            cell1.innerHTML = productNo;
-            // cell1.innerHTML = `<input type="text" name="productNo" value="${productNo}">`;
-            cell2.innerHTML = '<input type="text" name="lotNo">';
-            cell3.innerHTML = '<input type="text" name="productName">';
-            cell4.innerHTML = '<input type="number" name="quantity">';
-            cell5.innerHTML = '<input type="text" name="remarks">';
-        }
-    </script>
-
 
 {% endblock %}
 

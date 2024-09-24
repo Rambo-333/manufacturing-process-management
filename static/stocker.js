@@ -7,7 +7,32 @@ window.onload = () => {
 }
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    const leftTable = document.getElementById('leftTable').getElementsByTagName('tbody')[0];
+    const rightTable = document.getElementById('rightTable').getElementsByTagName('tbody')[0];
 
+    for (let i = 22; i >= 1; i--) {
+        addRow(leftTable, `2-1-${i}`);
+        addRow(rightTable, `1-1-${i}`);
+    }
+});
+
+function addRow(table, productNo) {
+    const newRow = table.insertRow();
+
+    const cell1 = newRow.insertCell(0);
+    const cell2 = newRow.insertCell(1);
+    const cell3 = newRow.insertCell(2);
+    const cell4 = newRow.insertCell(3);
+    const cell5 = newRow.insertCell(4);
+
+    cell1.innerHTML = productNo;
+    // cell1.innerHTML = `<input type="text" name="productNo" value="${productNo}">`;
+    cell2.innerHTML = '<input type="text" name="lotNo" readonly>';
+    cell3.innerHTML = '<input type="text" name="productName" readonly>';
+    cell4.innerHTML = '<input type="number" name="quantity" readonly>';
+    cell5.innerHTML = '<input type="text" name="remarks" readonly>';
+}
 
 // //DB操作
 // // ---------------------------------
