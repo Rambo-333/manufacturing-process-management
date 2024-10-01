@@ -20,12 +20,14 @@ document.addEventListener('DOMContentLoaded', function() {
 function addRow(table, productNo) {
     const newRow = table.insertRow();
 
-    const cell1 = newRow.insertCell(0);
-    const cell2 = newRow.insertCell(1);
-    const cell3 = newRow.insertCell(2);
-    const cell4 = newRow.insertCell(3);
-    const cell5 = newRow.insertCell(4);
+    const cell0 = newRow.insertCell(0);
+    const cell1 = newRow.insertCell(1);
+    const cell2 = newRow.insertCell(2);
+    const cell3 = newRow.insertCell(3);
+    const cell4 = newRow.insertCell(4);
+    const cell5 = newRow.insertCell(5);
 
+    cell0.innerHTML = '<input type="radio" name="check">';;
     cell1.innerHTML = productNo;
     // cell1.innerHTML = `<input type="text" name="productNo" value="${productNo}">`;
     cell2.innerHTML = '<input type="text" name="lotNo" readonly>';
