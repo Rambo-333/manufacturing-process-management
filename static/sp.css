@@ -3,7 +3,8 @@ body{
     font-family:"Helvetice Neue",Arial,"Hiragino kaku Gothic ProN",Meiryo, sans-serif;
     margin: 0px 0px 0px 0px;
     overflow: hidden;
-    background-image: url('../static/background1.jpg');
+    /* background-image: url('../static/background1.jpg'); */
+    background-color: #5cb4c4;
 }
 
 /*目次*/
