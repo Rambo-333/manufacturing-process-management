@@ -812,12 +812,13 @@ kind2.addEventListener('change', () => {
     document.getElementById("processDay2").value = defaultDateTime();
 });
 
+//enterキーによるサブミット防止
 (function() {
     'use strict';
 
     function delegateEvent(selector, type, listener, options) {
-    if (options == null) options = false;
-    document.addEventListener(type, evt => {
+        if (options == null) options = false;
+        document.addEventListener(type, evt => {
         for (let elem = evt.target; elem && elem !== document; elem = elem.parentNode) {
             if (elem.matches(selector)) return listener.call(elem, evt);
         }
@@ -825,25 +826,6 @@ kind2.addEventListener('change', () => {
     }
 
     delegateEvent('input', 'keydown', evt => {
-    if (evt.key === 'Enter') evt.preventDefault();
-    });
-}());
-
-
-//enterキーによるサブミット防止
-(function() {
-    'use strict';
-
-    function delegateEvent(selector, type, listener, options) {
-    if (options == null) options = false;
-    document.addEventListener(type, evt => {
-        for (let elem = evt.target; elem && elem !== document; elem = elem.parentNode) {
-        if (elem.matches(selector)) return listener.call(elem, evt);
-        }
-    }, options);
-    }
-
-    delegateEvent('input', 'keydown', evt => {
-    if (evt.key === 'Enter') evt.preventDefault();
+        if (evt.key === 'Enter') evt.preventDefault();
     });
 }());
