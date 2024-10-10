@@ -392,7 +392,7 @@ async function showUsers(showData){
                         UpData.getHours() + ':' + String(UpData.getMinutes()).padStart(2, '0');
                     }
                     if (columnName === 'ODave' && user[columnName]>3){
-                        dataRow += `<td onclick="showUsers2(\'${user['id']}\')">${user[columnName]}</td>`;
+                        dataRow += `<td onclick="showUsers2(event,'${user['id']}')">${user[columnName]}</td>`;
                     }else if (columnName !=='created_at' && columnName !=='updated_at'){
                         dataRow += `<td>${(user[columnName] === undefined ? '':user[columnName])}</td>`;
                     }
@@ -411,7 +411,12 @@ async function showUsers(showData){
 
 
 //データ取得(1本の詳細）
-async function showUsers2(oneData){
+async function showUsers2(event,oneData){
+
+    // タッチ時のY座標取得
+    let miniTable = document.getElementById("users2");
+    let yPos = event.clientY + window.scrollY;
+    miniTable.style.top = yPos + 'px';
     try {
         const response = await fetch(`/sp?input=${oneData}`,{
             method: 'GET'

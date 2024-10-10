@@ -294,7 +294,7 @@ textarea#memo {
 #users2 {
     position:absolute;
     left: 230px;
-    top: 230px;
+    /* top: 230px; */
 }
 #usersTable2 {
     border-collapse: collapse;  /* 各セルのボーダーを重ねる */
