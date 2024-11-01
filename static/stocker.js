@@ -29,11 +29,10 @@ function addRow(table, productNo) {
 
     cell0.innerHTML = '<input type="radio" name="check">';;
     cell1.innerHTML = productNo;
-    // cell1.innerHTML = `<input type="text" name="productNo" value="${productNo}">`;
     cell2.innerHTML = '<input type="text" name="lotNo" readonly>';
     cell3.innerHTML = '<input type="text" name="productName" readonly>';
-    cell4.innerHTML = '<input type="number" name="quantity" readonly>';
-    cell5.innerHTML = '<input type="text" name="remarks" readonly>';
+    cell4.innerHTML = '<input type="number" name="quantity">';
+    cell5.innerHTML = '<input type="text" name="remarks">';
 }
 
 // //DB操作
@@ -141,19 +140,24 @@ function addRow(table, productNo) {
 // ---------------------------------
 //enterキーによるサブミット防止
 (function() {
-'use strict';
+    'use strict';
 
-function delegateEvent(selector, type, listener, options) {
-    if (options == null) options = false;
-    document.addEventListener(type, evt => {
-        for (let elem = evt.target; elem && elem !== document; elem = elem.parentNode) {
-        if (elem.matches(selector)) return listener.call(elem, evt);
-        }
-    }, options);
-}
+    function delegateEvent(selector, type, listener, options) {
+        if (options == null) options = false;
+        document.addEventListener(type, evt => {
+            for (let elem = evt.target; elem && elem !== document; elem = elem.parentNode) {
+            if (elem.matches(selector)) return listener.call(elem, evt);
+            }
+        }, options);
+    }
 
-delegateEvent('input', 'keydown', evt => {
-    if (evt.key === 'Enter') evt.preventDefault();
-});
-}());
+    delegateEvent('input', 'keydown', evt => {
+        if (evt.key === 'Enter') evt.preventDefault();
+    });
+    }());
+
+    //ダブルタップで拡大禁止
+    document.documentElement.addEventListener('dblclick',function(e) {
+        e.preventDefault();
+    });
 
