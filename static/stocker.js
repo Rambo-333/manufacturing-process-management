@@ -19,21 +19,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function addRow(table, productNo) {
     const newRow = table.insertRow();
-
     const cell0 = newRow.insertCell(0);
     const cell1 = newRow.insertCell(1);
     const cell2 = newRow.insertCell(2);
     const cell3 = newRow.insertCell(3);
     const cell4 = newRow.insertCell(4);
-    const cell5 = newRow.insertCell(5);
 
-    cell0.innerHTML = '<input type="radio" name="check">';;
-    cell1.innerHTML = productNo;
-    cell2.innerHTML = '<input type="text" name="lotNo" readonly>';
-    cell3.innerHTML = '<input type="text" name="productName" readonly>';
-    cell4.innerHTML = '<input type="number" name="quantity">';
-    cell5.innerHTML = '<input type="text" name="remarks">';
-}
+    const hiddenRows = ['2-1-12', '2-1-11', '2-1-10', '2-1-1']
+    if (hiddenRows.includes(productNo)){
+        newRow.classList.add('hidden-row');
+    }else{
+        cell0.innerHTML = productNo;
+        cell1.innerHTML = '<input type="text" name="lotNo_${productNo}" readonly>';
+        cell2.innerHTML = '<input type="text" name="kindName_${productNo}" readonly>';
+        cell3.innerHTML ='<select name ="condition_${productNo}"><option value="" selected></option><option value="通常品">通常品</option><option value="保留品">保留品</option></select>';
+        cell4.innerHTML = '<textarea name="remarks_${productNo}"></textarea>';
+}}
+
+
+
 
 // //DB操作
 // // ---------------------------------

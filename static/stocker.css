@@ -33,53 +33,21 @@ ul li {
     margin: 0 10px;
 }
 
-/* タブ */
-#tabs a {
-    display: inline-block;
-    border: 1px solid #99f2c8; /* グラデーションの色 */
-    border-radius: 0.75em 0.75em 0 0;
-    padding: 0.75em 1.618em; /* フィボナッチ数のパディング */
-    text-decoration: none;
-    color: #e0e0e0;
-    background-color: #333; /* 背景色 */
-    font-weight: bold;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-#tabs a:hover {
-    background-color: #99f2c8; /* ホバー時の背景色 */
-    color: #1a1a1a; /* ホバー時のテキスト色 */
-}
-
-/* タブの位置 */
-.tab {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    padding: 0 30px;
-}
-
-.save-button {
-    border-radius: 50%;
-    background-color: #99f2c8; /* ボタンの背景色 */
-    color: #1a1a1a; /* ボタンのテキスト色 */
-    padding: 0.75em 1.618em; /* フィボナッチ数のパディング */
-    font-weight: bold;
-    font-size: 15px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.save-button:hover {
-    background-color: #1f4037; /* ホバー時の背景色 */
-    color: #ffffff; /* ホバー時のテキスト色 */
-}
-
 h1 {
-    margin-top: 0;
+    margin-top: 33px;
     text-align: center;
     color: #99f2c8; /* タイトルの色 */
 }
 
 .container{
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.hidden-row {
+    visibility: hidden;
+    height: 20px;
 }

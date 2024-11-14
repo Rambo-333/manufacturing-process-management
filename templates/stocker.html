@@ -4,21 +4,12 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='stocker.css')}}">
 {% endblock %}
 {% block content %}
-    <div class="tab">
-        <p id="tabs">
-            <a href="#tab1">MAIN</a>
-            <!-- <a href="#tab2">DATA</a> -->
-        </p>
-        <div><input type="submit" form="" value="SAVE" class="save-button"></div>
-    </div>
-
     <h1>ストッカー</h1>
 
     <div class="container">
         <table id="leftTable">
             <thead>
                 <tr>
-                    <th>check</th>
                     <th>棚No</th>
                     <th>LotNo</th>
                     <th>品名</th>
@@ -34,7 +25,6 @@
         <table id="rightTable">
             <thead>
                 <tr>
-                    <th>check</th>
                     <th>棚No</th>
                     <th>LotNo</th>
                     <th>品種</th>

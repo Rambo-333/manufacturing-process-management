@@ -1,29 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="ja">-->
-<!--<head>-->
-<!--    <meta charset="utf-8">-->
-<!--    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">-->
-<!--    <title>K_process</title>-->
-<!--    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vi.css')}}">-->
-
-<!--</head>-->
-
-<!--<body>-->
-<!--    <div class="top-image-area">-->
-<!--        <header>-->
-<!--            <ul>-->
-<!--                <li><a href="/" class="btn2">Home</a></li>-->
-<!--                <li><a href="{{ url_for('cut') }}" class="btn4">NewCUT</a></li>-->
-<!--                <li><a href="/" class="btn4">AddCUT</a></li>-->
-<!--                <li><a href="/" class="btn4">SP</a></li>-->
-<!--                <li><a href="/" class="btn4">SD</a></li>-->
-<!--                <li><a href="/" class="btn4">SC</a></li>-->
-<!--                <li><a href="/" class="btn4">SH</a></li>-->
-<!--                <li><a href="/" class="btn4">SEG</a></li>-->
-<!--                <li><a href="{{ url_for('vi') }}" class="btn4">VIS</a></li>-->
-<!--            </ul>-->
-<!--        </header>-->
-<!--    </div>-->
 {% extends "base.html" %}
 {% block link %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vi.css')}}">
@@ -99,7 +73,7 @@
 
 
         <table class="memo"><tr>
-           <td> <table>
+            <td> <table>
                 <tr><td>
                     <button type="button" class="btn active" id="b1" onclick="kinds(1)">○</button>
                     <text>Bu:Bubble</text>
@@ -133,22 +107,22 @@
                     <text>IP:Inside Pit(内クボミ)</text>
                     <text id="6">-</text>
                 </td></tr>
-               <tr><td>
+                <tr><td>
                     <button type="button" class="btn" id="b7" onclick="kinds(7)">▼</button>
                     <text>OP:Outside Pit(外クボミ)</text>
                     <text id="7">-</text>
                 </td></tr>
-               <tr><td>
+                <tr><td>
                     <button type="button" class="btn" id="b8" onclick="kinds(8)">■</button>
                     <text>In:Indusion(異物)</text>
                     <text id="8">-</text>
                 </td></tr>
-               <tr><td>
+                <tr><td>
                     <button type="button" class="btn" id="b9" onclick="kinds(9)">▲</button>
                     <text>Sc:Scratch(キズ)</text>
                     <text id="9">-</text>
                 </td></tr>
-               <tr><td>
+                <tr><td>
                     <button type="button" class="btn" id="b10" onclick="kinds(10)">◎</button>
                     <text>Co:Convex(HFマーク)</text>
                     <text id="10">-</text>
@@ -161,22 +135,22 @@
                     <text>Ch:Chipping(カケ、ヒビ)</text>
                     <text id="11">-</text>
                 </td></tr>
-               <tr><td>
+                <tr><td>
                     <button type="button" class="btn" id="b12" onclick="kinds(12)">☆</button>
                     <text>GM:GringMark(外研キズ)</text>
                     <text id="12">-</text>
                 </td></tr>
-               <tr><td>
+                <tr><td>
                     <button type="button" class="btn" id="b13" onclick="kinds(13)">|//|</button>
                     <text>HM:HoningMark</text>
                     <text id="13">-</text>
                 </td></tr>
-               <tr><td>
+                <tr><td>
                     <button type="button" class="btn" id="b14" onclick="kinds(14)">|xx|</button>
                     <text>NG:NonGroundZone(外削残)</text>
                     <text id="14">-</text>
                 </td></tr>
-               <tr><td>
+                <tr><td>
                     <button type="button" class="btn" id="b15" onclick="kinds(15)">◀</button>
                     <text>NF:NonFinishedZone(内削残)</text>
                     <text id="15">-</text>
@@ -215,10 +189,3 @@
 {% block script %}
 <script src="{{ url_for('static',filename='vi.js')}}"></script>
 {% endblock %}
-<!--<script src="{{ url_for('static',filename='jquery-3.6.1.min.js')}}"></script>-->
-<!--<script src="{{ url_for('static',filename='jsQR.js')}}"></script>-->
-<!--<script src="{{ url_for('static',filename='qr-code.js')}}"></script>-->
-<!--<script src="{{ url_for('static',filename='vi.js')}}"></script>-->
-
-<!--</body>-->
-<!--</html>-->
