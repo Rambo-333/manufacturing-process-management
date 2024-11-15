@@ -15,6 +15,79 @@ document.addEventListener('DOMContentLoaded', function() {
         addRow(leftTable, `2-1-${i}`);
         addRow(rightTable, `1-1-${i}`);
     }
+
+    // 棚Noをクリックしたら色を変更または元に戻す
+    document.querySelectorAll('td:first-child').forEach(cell => {
+        cell.addEventListener('click', function() {
+            if (this.style.backgroundColor === 'rgb(255, 204, 0)') { // 色が変更されている場合
+                this.style.backgroundColor = ''; // 元の色に戻す
+            } else {
+                this.style.backgroundColor = '#ffcc00'; // 変更したい色
+            }
+        });
+    });
+
+    // selectの変更イベントを監視
+    document.querySelectorAll('select').forEach(select => {
+        select.addEventListener('change', function() {
+            const row = this.closest('tr');
+            if (this.value === '保留品') {
+                row.style.backgroundColor = '#ffcccc'; // 保留品が選択された場合の色
+            } else {
+                row.style.backgroundColor = ''; // 元の色に戻す
+            }
+        });
+    });
+
+    // lotno列の行をクリックしたときにモーダルを表示
+    document.querySelectorAll('td:nth-child(2)').forEach(cell => {
+        cell.addEventListener('click', function(event) {
+            const modal = document.getElementById('modal');
+            const rect = cell.getBoundingClientRect();
+            modal.style.top = `${rect.top + window.scrollY - 150}px`; // 行の少し上に表示
+            modal.style.left = `${rect.left + window.scrollX}px`;
+            modal.style.display = 'block';
+
+        // IN/修正ボタンのクリックイベント
+        document.getElementById('inOrEdit').onclick = function() {
+            const inputs = cell.parentElement.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.readOnly = false;
+            });
+            modal.style.display = 'none';
+            // inputs[0].focus(); // lotnoの該当行をフォーカス
+            // inputs[0].click();
+        };
+
+        // OUTボタンのクリックイベント
+        document.getElementById('out').onclick = function() {
+            const inputs = cell.parentElement.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                if (input.tagName === 'SELECT') {
+                    input.selectedIndex = 0; // select要素の場合、選択をクリア
+                } else {
+                    input.value = ''; // inputとtextarea要素の場合、値をクリア
+                }
+            });
+            modal.style.display = 'none';
+        };
+        });
+    });
+
+    // モーダルの閉じるボタン
+    document.querySelector('.close').onclick = function() {
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
+    };
+
+    // モーダル外をクリックしたときに閉じる
+    window.onclick = function(event) {
+        const modal = document.getElementById('modal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+
 });
 
 function addRow(table, productNo) {
@@ -31,7 +104,7 @@ function addRow(table, productNo) {
     }else{
         cell0.innerHTML = productNo;
         cell1.innerHTML = '<input type="text" name="lotNo_${productNo}" readonly>';
-        cell2.innerHTML = '<input type="text" name="kindName_${productNo}" readonly>';
+        cell2.innerHTML = '<input type="text" name="kindName_${productNo}">';
         cell3.innerHTML ='<select name ="condition_${productNo}"><option value="" selected></option><option value="通常品">通常品</option><option value="保留品">保留品</option></select>';
         cell4.innerHTML = '<textarea name="remarks_${productNo}"></textarea>';
 }}

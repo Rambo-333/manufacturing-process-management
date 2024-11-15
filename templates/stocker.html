@@ -4,8 +4,7 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='stocker.css')}}">
 {% endblock %}
 {% block content %}
-    <h1>ストッカー</h1>
-
+    <h1>ストッカー前棚</h1>
     <div class="container">
         <table id="leftTable">
             <thead>
@@ -21,7 +20,7 @@
                 <!-- JavaScriptで行が追加 -->
             </tbody>
         </table>
-        <br>
+        <h1>ストッカー後棚</h1>
         <table id="rightTable">
             <thead>
                 <tr>
@@ -36,6 +35,18 @@
                 <!-- JavaScriptで行が追加 -->
             </tbody>
         </table>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="qr">
+                <img class="icon" id="qr" src="{{ url_for('static',filename='ca.svg')}}" onclick="onClickQR()">
+                <canvas id="canvas" hidden></canvas>
+            </div>
+            <button id="inOrEdit">手入力</button>
+            <button id="out">出庫</button>
+        </div>
     </div>
 
 {% endblock %}

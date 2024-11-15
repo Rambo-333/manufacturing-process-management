@@ -2,6 +2,7 @@ body {
     font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
     margin: 0;
     padding: 0;
+    padding-bottom: 50px;
     background-color: #121212; /* ダークモード背景色 */
     color: #f5f5f5; /* テキストの色をライトグレーに */
 }
@@ -51,3 +52,83 @@ h1 {
     visibility: hidden;
     height: 20px;
 }
+
+input[type="text"], select, textarea {
+    height: 30px; /* 一律の高さ */
+    width: 150px;
+    font-size: 20px;
+}
+
+select {
+    text-align: center;
+}
+
+.separator {
+    width: 100%;
+    height: 20px;
+    background-color: #e2dcde;
+    margin: 20px 0;
+}
+
+/* textareaのフォーカス時のスタイル */
+textarea:focus {
+    width: 150px; /* フォーカス時の幅 */
+    height: 100px; /* フォーカス時の高さ */
+    transition: width 0.3s ease, height 0.3s ease; /* アニメーション効果 */
+}
+
+/* モーダルのスタイル */
+.modal {
+    display: none;
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #66e7c7;
+    padding: 20px;
+    border: 10px solid #181616;
+    width: 300px;
+    height: 230px;
+    max-width: 90%; /* 最大幅を設定 */
+    max-height: 90%;
+    position: absolute; /* 絶対位置に変更 */
+}
+
+.close {
+    color: #c90a0a;
+    float: right;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.close:hover,.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 画像とボタンの大きさを統一 */
+.qr .icon, #inOrEdit, #out {
+    width: 100px; /* 幅を100pxに統一 */
+    height: 100px; /* 高さを100pxに統一 */
+    display: inline-block;
+    margin: 10px; /* 余白を追加 */
+}
+
+#inOrEdit, #out {
+    font-size: 16px; /* ボタンの文字サイズを調整 */
+    padding: 10px; /* ボタンの内側の余白を調整 */
+    background-color: #5f2dbb; /* ボタンの背景色 */
+    color: #fff; /* ボタンの文字色 */
+    border: none; /* ボーダーを削除 */
+    cursor: pointer; /* カーソルをポインタに変更 */
+}
+
+#inOrEdit:hover, #out:hover {
+    background-color: #98fb98; /* ホバー時の背景色 */
+}
+
