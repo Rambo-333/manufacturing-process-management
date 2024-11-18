@@ -7,6 +7,7 @@ function onClickQR(){
     const outputData2 = document.getElementById("kind");
     let streambox;
 
+
     function drawLine(begin, end, color) {
         canvas.beginPath();
         canvas.moveTo(begin.x, begin.y);
@@ -54,13 +55,13 @@ function onClickQR(){
                 track.stop();
                 });
                 canvasElement.hidden = true;
+
                 var event = new Event('change');
                 outputData1.dispatchEvent(event);
-                //outputData2.dispatchEvent(event);
+                outputData2.dispatchEvent(event);
                 return;
             }
             }
-
         }
         requestAnimationFrame(tick);
     }
