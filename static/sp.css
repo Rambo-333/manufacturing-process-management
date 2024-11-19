@@ -248,7 +248,7 @@ textarea#memo {
     position: absolute;
     top: 111px;
     left: 100px;
-    z-index: auto;
+    z-index: 1000;
 }
 
 /* タブ表示関係-----------> */

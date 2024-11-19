@@ -7,6 +7,7 @@ body {
     color: #f5f5f5; /* テキストの色をライトグレーに */
 }
 
+
 /* ナビゲーションメニュー */
 header {
     height: 55px;
@@ -34,12 +35,43 @@ ul li {
     margin: 0 10px;
 }
 
+
+/* === 見出しエリア ============================== */
 h1 {
     margin-top: 33px;
     text-align: center;
     color: #99f2c8; /* タイトルの色 */
 }
 
+
+/* === ボタンを表示するエリア ============================== */
+.InOutB {
+    display       : inline-block;
+    position      : fixed;       /* ボタン固定 */
+    top        : 110px;        /* 上から位置 */
+    padding       : 5px 5px;   /* 余白       */
+    /* background    : #326ebd;     背景色     */
+    color         : #ffffff;     /* 文字色     */
+    border-radius : 11%;          /* 角丸       */
+    font-size     : 15pt;        /* 文字サイズ */
+    font-weight   : bold;        /* 太字       */
+    line-height   : 1.2em;       /* 行の高さ   */
+    letter-spacing: 1px;         /* 文字間隔   */
+    text-align    : center;      /* 文字位置   */
+    }
+
+#inbound {
+    left: 61px; /* 左から位置 */
+    background    : #5a83af;     /* 背景色     */
+}
+
+#outbound {
+    left: 130px; /* 左から位置を調整して横に並べる */
+    background    : #94aa6f;     /* 背景色     */
+}
+
+
+/* === table内設定エリア ============================== */
 .container{
     display: flex;
     justify-content: center;
@@ -75,61 +107,6 @@ textarea:focus {
     width: 150px; /* フォーカス時の幅 */
     height: 100px; /* フォーカス時の高さ */
     transition: width 0.3s ease, height 0.3s ease; /* アニメーション効果 */
-}
-
-/* モーダルのスタイル */
-.modal {
-    display: none;
-    position: absolute;
-    z-index: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-    background-color: #66e7c7;
-    padding: 20px;
-    border: 10px solid #181616;
-    width: 300px;
-    height: 230px;
-    max-width: 90%; /* 最大幅を設定 */
-    max-height: 90%;
-    position: absolute; /* 絶対位置に変更 */
-}
-
-.close {
-    color: #c90a0a;
-    float: right;
-    font-size: 36px;
-    font-weight: bold;
-}
-
-.close:hover,.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* 画像とボタンの大きさを統一 */
-.qr .icon, #inOrEdit, #out {
-    width: 100px; /* 幅を100pxに統一 */
-    height: 100px; /* 高さを100pxに統一 */
-    display: inline-block;
-    margin: 10px; /* 余白を追加 */
-}
-
-#inOrEdit, #out {
-    font-size: 16px; /* ボタンの文字サイズを調整 */
-    padding: 10px; /* ボタンの内側の余白を調整 */
-    background-color: #5f2dbb; /* ボタンの背景色 */
-    color: #fff; /* ボタンの文字色 */
-    border: none; /* ボーダーを削除 */
-    cursor: pointer; /* カーソルをポインタに変更 */
-}
-
-#inOrEdit:hover, #out:hover {
-    background-color: #98fb98; /* ホバー時の背景色 */
 }
 
 

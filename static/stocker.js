@@ -26,21 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-    // selectの変更イベントを監視
-    document.querySelectorAll('select').forEach(select => {
-        select.addEventListener('change', function() {
-            const row = this.closest('tr');
-            if (this.value === '保留品') {
-                row.style.backgroundColor = '#ffcccc'; // 保留品が選択された場合の色
-            } else {
-                row.style.backgroundColor = ''; // 元の色に戻す
-            }
-        });
-    });
-
-
-
 });
 
 function addRow(table, productNo) {
@@ -64,9 +49,41 @@ function addRow(table, productNo) {
             <label for="switch_${productNo}"><span></span></label>
             <div id="swImg"></div>
         </div>`;
-        // cell3.innerHTML ='<select name ="condition_${productNo}"><option value="" selected></option><option value="通常品">通常品</option><option value="保留品">保留品</option></select>';
         cell4.innerHTML = '<textarea name="remarks_${productNo}"></textarea>';
 }}
+
+
+//入庫処理
+function inbound(){
+
+
+
+
+
+
+
+
+
+
+
+
+}
+//出庫処理
+function outbound(){
+
+
+
+
+
+
+
+
+
+
+
+    
+}
+//棚No読み取り
 
 
 

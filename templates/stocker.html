@@ -5,6 +5,10 @@
 {% endblock %}
 {% block content %}
     <h1>ストッカー前棚</h1>
+
+    <div id="inbound" class="InOutB" onclick="inbound()">入庫</div>
+    <div id="outbound" class="InOutB" onclick="outbound()">出庫</div>
+
     <div class="container">
         <table id="leftTable">
             <thead>
@@ -35,18 +39,6 @@
                 <!-- JavaScriptで行が追加 -->
             </tbody>
         </table>
-    </div>
-
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="qr">
-                <img class="icon" id="qr" src="{{ url_for('static',filename='ca.svg')}}" onclick="onClickQR()">
-                <canvas id="canvas" hidden></canvas>
-            </div>
-            <button id="inOrEdit">手入力</button>
-            <button id="out">出庫</button>
-        </div>
     </div>
 
 {% endblock %}
