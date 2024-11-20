@@ -53,37 +53,78 @@ function addRow(table, productNo) {
 }}
 
 
+// 入出庫処理コード
+// =======================================
+import { onClickQR } from './stockerQR.js';
+
 //入庫処理
-function inbound(){
+async function inbound() {
+    const rackNo = await inoutbound();
+    if (rackNo){
+        try{
+            const scanText = 'LotNoスキャン';
+            const lotData = await onClickQR(scanText);
 
+            console.log(lotData);
+            let lotno = ''
+            let kind = ''
+            const commaIndex = lotData.indexOf(',');
+            if (commaIndex !== -1) {
+                lotno = lotData.substr(0, commaIndex);
+                kind = lotData.substr(commaIndex + 1);
+            } else {
+                lotno = lotData;
+            }
+            console.log(lotno, kind);
 
-
-
-
-
-
-
-
-
-
-
+        } catch(error) {
+            console.error('Error reading QR code:', error);
+            alert(`中止します。最初からやり直してください.`);
+        }
+    }
 }
+
 //出庫処理
-function outbound(){
+async function outbound(){
+    const rackNo = await inoutbound();
+    if (rackNo){
+        console.log('out');
 
 
-
-
-
-
-
-
-
-
-
-    
+    }
 }
-//棚No読み取り
+//共通処理
+async function inoutbound() {
+    window.scrollTo({ top: 0, behavior: 'smooth'});
+    try {
+        const scanText = '棚Noスキャン';
+        const rackNo = await onClickQR(scanText);
+
+        // productNoと一致するか確認
+        const allProductNos = Array.from(document.querySelectorAll('td:first-child')).map(td => td.textContent);
+
+        if (allProductNos.includes(rackNo)) {
+            console.log(`Rack No ${rackNo} is found in the product list.`);
+            return rackNo;
+        } else {
+            console.log(`Rack No ${rackNo} is not found in the product list.`);
+            alert(`棚No ${rackNo} ありません.`);
+            return null;
+        }
+
+    } catch (error) {
+        console.error('Error reading QR code:', error);
+        return null;
+    }
+}
+
+// グローバルスコープに追加
+window.inbound = inbound;
+window.outbound = outbound;
+window.onClickQR = onClickQR;
+
+
+
 
 
 

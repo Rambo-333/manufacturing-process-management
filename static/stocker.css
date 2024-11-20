@@ -66,8 +66,17 @@ h1 {
 }
 
 #outbound {
-    left: 130px; /* 左から位置を調整して横に並べる */
+    left: 150px; /* 左から位置を調整して横に並べる */
     background    : #94aa6f;     /* 背景色     */
+}
+
+
+/* === anvas装飾 ============================== */
+#canvas{
+    position: absolute;
+    top: 111px;
+    left: 100px;
+    z-index: 1000;
 }
 
 

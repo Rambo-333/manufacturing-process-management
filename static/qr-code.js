@@ -1,3 +1,4 @@
+
 const video = document.createElement("video");
 let streambox;
 let isClosed = false; // 閉じるボタンが押されたかどうかを判定する変数
@@ -10,16 +11,6 @@ function onClickQR() {
     const outputData2 = document.getElementById("kind");
 
     startCamera();
-
-    // function drawLine(begin, end, color) {
-    //     canvas.beginPath();
-    //     canvas.moveTo(begin.x, begin.y);
-    //     canvas.lineTo(end.x, end.y);
-    //     canvas.lineWidth = 4;
-    //     canvas.strokeStyle = color;
-    //     canvas.stroke();
-    // }
-
     function tick() {
         if (video.readyState === video.HAVE_ENOUGH_DATA) {
             canvasElement.hidden = false;
