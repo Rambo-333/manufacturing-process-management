@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// 画面テーブル表示
 function addRow(table, productNo) {
     const newRow = table.insertRow();
     const cell0 = newRow.insertCell(0);
