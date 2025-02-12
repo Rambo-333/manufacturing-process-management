@@ -8,7 +8,10 @@ import datetime
 
 class Stocker(BaseDatabase):
     __tablename__ = "stocker"
-    for i in range(1,100):
+    for i in range(1,22):
+        locals()[f'lotno_{i}'] = Column(String)
+        locals()[f'kind_{i}'] = Column(String)
+        locals()[f'OD_1_{i}'] = Column(Float)
         locals()[f'OD_1_{i}'] = Column(Float)
 
 
@@ -36,7 +39,7 @@ class Stocker(BaseDatabase):
     def read_data():
         session = database.connect_db()
         c_list = Stocker.__table__.c.keys()
-        dbdata = session.query(Stocker).order_by(Stocker.id.desc()).limit(num).all()
+        dbdata = session.query(Stocker).order_by(Stocker.id.desc()).all()
         data = []
         for target in dbdata:
             record = {}
