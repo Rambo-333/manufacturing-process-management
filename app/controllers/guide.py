@@ -38,6 +38,11 @@ def index():
 
 @app.route("/stocker", methods=['GET', 'POST'])
 def stocker():
+    if request.method == 'GET':
+        nocheck = request.args.get('input')
+        if nocheck == 'showData':
+            c_list, data = Stocker.read_data()
+        return jsonify({'result1': c_list, 'result2': data})
     return render_template('stocker.html')
 
 
@@ -159,7 +164,7 @@ def handle_post_request(form_data):
     data = base64.b64decode(encoded)
     # ファイル名を指定
     save_dir = 'c:/Users/Development/deployCheck/visImage'
-    # ファイル名を指定（ここではユーザーネームを使用）
+    # ファイル名を指定
     filename = f'{lot_number}.jpg'
     # ファイルを保存
     with open(os.path.join(save_dir, filename), 'wb') as f:

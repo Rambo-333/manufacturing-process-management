@@ -125,6 +125,27 @@ window.outbound = outbound;
 window.onClickQR = onClickQR;
 
 
+// データベースからデータ取得
+async function showUsers(showData){
+    try {
+        const response = await fetch(`/cut?input=${showData}`,{
+            method: 'GET'
+        });
+        if (response.ok){
+            var viData = await response.json();
+            console.log('response-showData-OK',Data);
+            var resultData1 = Data.result1;
+            var resultData2 = Data.result2;
+        }else{
+            console.error('リクエストエラー');
+        }
+    } catch (error) {
+        console.error('error',error);
+    }
+}
+
+
+
 
 
 
