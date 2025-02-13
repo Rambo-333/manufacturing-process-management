@@ -6,6 +6,7 @@ import json
 
 # 外部ライブラリや自作モジュールのインポート
 from flask import Flask, redirect, render_template, request, url_for, jsonify, make_response
+from app.models.stocker import Stocker
 from app.models.cut import NewCut
 from app.models.addcut import AddCut
 from app.models.sp import SP

@@ -50,7 +50,7 @@ function addRow(table, productNo) {
             <label for="switch_${productNo}"><span></span></label>
             <div id="swImg"></div>
         </div>`;
-        cell4.innerHTML = '<textarea name="remarks_${productNo}"></textarea>';
+        cell4.innerHTML = '<textarea name="note_${productNo}"></textarea>';
 }}
 
 
