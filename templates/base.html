@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-    <title>K_process</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>ManufacturingApp</title>
     {% block link %}{% endblock %}
 </head>
 
@@ -12,16 +13,7 @@
         <header>
             <ul>
                 <li><a href="/" class="btn2">Home</a></li>
-                <li><a href="{{ url_for('stocker') }}" class="btn4">ストッカー</a></li>
-                <li><a href="{{ url_for('cut') }}" class="btn4">NewCUT</a></li>
-                <li><a href="{{ url_for('add_cut') }}" class="btn4">AddCUT</a></li>
-                <li><a href="{{ url_for('sp') }}" class="btn4">SP</a></li>
-                <li><a href="/" class="btn4">SD</a></li>
-                <li><a href="/" class="btn4">SC</a></li>
-                <li><a href="/" class="btn4">SH</a></li>
-                <li><a href="/" class="btn4">SEG</a></li>
                 <li><a href="{{ url_for('vi') }}" class="btn4">VIS</a></li>
-                <li><a href="{{ url_for('vad_ins') }}" class="btn4">vad_INS</a></li>
             </ul>
         </header>
     </div>

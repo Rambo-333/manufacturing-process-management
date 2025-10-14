@@ -17,18 +17,19 @@
     <div id="tabbody">
     <section id="tab1">
     <form id="myForm" action="/vi" method="post" onsubmit="return saveDate()">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="info">
             <div class="info-1">
                 <div>
                     <input type="datetime-local" id="processDay1" name="processDay1" required>
-                    <label for="man1">製造</label>
+                    <label for="man1">Manufacturing</label>
                     <select id="man1" name="man1" required>
                         <option value="" disabled selected hidden>選択</option>
                     </select>
                 </div>
                 <div>
                     <input type="datetime-local" id="processDay2" name="processDay2">
-                    <label for="man2">品保</label>
+                    <label for="man2">QA</label>
                     <select id="man2" name="man2"></select>
                 </div>
             </div>
@@ -37,7 +38,7 @@
                 <canvas id="canvas" hidden></canvas>
             </div>
             <div class="info-2">
-                <label for="lotno" >LotNo.</label>
+                <label for="lotno" >No.</label>
                 <input type="text" id="lotno" name="lotno" required>
                 <label for="kind">品名</label>
                 <input type="text" id="kind" name="kind">
@@ -45,11 +46,11 @@
             </div>
 
             <div class="info-3">
-                <label for="weight">実重量</label>
+                <label for="weight">重さ</label>
                 <input type="text" inputmode="decimal" id="weight" name="weight" placeholder="※小数第1_kg">
-                <label for="length">全長</label>
+                <label for="length">長さ</label>
                 <input type="text" inputmode="numeric" pattern="\d*" id="length" name="length" placeholder="mm" required>
-                <label for="loss">不良部</label>
+                <label for="loss">不良</label>
                 <input type="text" inputmode="numeric" pattern="\d*" id="loss" name="loss" placeholder="mm">
             </div>
         </div>
@@ -76,27 +77,27 @@
             <td> <table>
                 <tr><td>
                     <button type="button" class="btn active" id="b1" onclick="kinds(1)">○</button>
-                    <text>Bu:Bubble</text>
+                    <text>Bubble</text>
                     <text id="1">0</text>
                 </td></tr>
                 <tr><td>
                     <button type="button" class="btn" id="b2" onclick="kinds(2)">△</button>
-                    <text>:ままこ</text>
+                    <text>bubble_white</text>
                     <text id="2">0</text>
                 </td></tr>
                 <tr><td>
                     <button type="button" class="btn" id="b3" onclick="kinds(3)">×</button>
-                    <text>TB:Tornade Bubble</text>
+                    <text>Tornade Bubble</text>
                     <text id="3">0</text>
                 </td></tr>
                 <tr><td>
                     <button type="button" class="btn" id="b4" onclick="kinds(4)">□</button>
-                    <text>LB:Laminate Bubble</text>
+                    <text>Laminate Bubble</text>
                     <text id="4">-</text>
                 </td></tr>
                 <tr><td>
                     <button type="button" class="btn" id="b5" onclick="kinds(5)">/</button>
-                    <text>ミシン目</text>
+                    <text>eyes</text>
                     <text id="5">-</text>
                 </td></tr>
             </table></td>
@@ -104,27 +105,27 @@
             <td><table>
                 <tr><td>
                     <button type="button" class="btn" id="b6" onclick="kinds(6)">●</button>
-                    <text>IP:Inside Pit(内クボミ)</text>
+                    <text>Inside Pit</text>
                     <text id="6">-</text>
                 </td></tr>
                 <tr><td>
                     <button type="button" class="btn" id="b7" onclick="kinds(7)">▼</button>
-                    <text>OP:Outside Pit(外クボミ)</text>
+                    <text>Outside Pit</text>
                     <text id="7">-</text>
                 </td></tr>
                 <tr><td>
                     <button type="button" class="btn" id="b8" onclick="kinds(8)">■</button>
-                    <text>In:Indusion(異物)</text>
+                    <text>Indusion</text>
                     <text id="8">-</text>
                 </td></tr>
                 <tr><td>
                     <button type="button" class="btn" id="b9" onclick="kinds(9)">▲</button>
-                    <text>Sc:Scratch(キズ)</text>
+                    <text>Scratch</text>
                     <text id="9">-</text>
                 </td></tr>
                 <tr><td>
                     <button type="button" class="btn" id="b10" onclick="kinds(10)">◎</button>
-                    <text>Co:Convex(HFマーク)</text>
+                    <text>Convex</text>
                     <text id="10">-</text>
                 </td></tr>
             </table></td>
@@ -132,27 +133,27 @@
             <td><table>
                 <tr><td>
                     <button type="button" class="btn" id="b11" onclick="kinds(11)">★</button>
-                    <text>Ch:Chipping(カケ、ヒビ)</text>
+                    <text>Chipping</text>
                     <text id="11">-</text>
                 </td></tr>
                 <tr><td>
                     <button type="button" class="btn" id="b12" onclick="kinds(12)">☆</button>
-                    <text>GM:GringMark(外研キズ)</text>
+                    <text>GringMark</text>
                     <text id="12">-</text>
                 </td></tr>
                 <tr><td>
                     <button type="button" class="btn" id="b13" onclick="kinds(13)">|//|</button>
-                    <text>HM:HoningMark</text>
+                    <text>Mark</text>
                     <text id="13">-</text>
                 </td></tr>
                 <tr><td>
                     <button type="button" class="btn" id="b14" onclick="kinds(14)">|xx|</button>
-                    <text>NG:NonGroundZone(外削残)</text>
+                    <text>NG</text>
                     <text id="14">-</text>
                 </td></tr>
                 <tr><td>
                     <button type="button" class="btn" id="b15" onclick="kinds(15)">◀</button>
-                    <text>NF:NonFinishedZone(内削残)</text>
+                    <text>NF</text>
                     <text id="15">-</text>
                 </td></tr>
             </table></td>
@@ -171,7 +172,7 @@
                         <th>man1</th>
                         <th>processDay2</th>
                         <th>man2</th>
-                        <th>lotno</th>
+                        <th>no</th>
                         <th>kind</th>
                         <th>weight</th>
                         <th>length</th>

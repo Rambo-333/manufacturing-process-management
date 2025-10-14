@@ -1,0 +1,11 @@
+# サンプル作業者リスト（実際のデータではありません）
+# 本番環境では workers.txt を使用してください
+
+Worker-A
+Worker-B
+Worker-C
+Worker-D
+Worker-E
+Worker-F
+Worker-G
+Worker-H

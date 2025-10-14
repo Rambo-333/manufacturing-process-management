@@ -48,11 +48,19 @@ share/python-wheels/
 *.sublime-project
 *.sublime-workspace
 
+# 機密情報
+ssl.*
+*.wsgi
+workers.txt
+workers2.txt
+san.txt
 section2.sql
-visImage/
-static/jquery-3.6.1.min.js
-ssl.key
-application.wsgi
-requirements.txt
-ssl.crt
-ssl.csr
+.env
+
+# アプリケーション固有
+visImage/*.jpg
+visImage/*.jpeg
+visImage/*.png
+app.db
+app.log
+memo.txt

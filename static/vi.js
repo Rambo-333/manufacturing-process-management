@@ -552,7 +552,7 @@ function saveDate(){
     
     let checkMan2 = document.getElementById("man2").value;
     let checkSection = '';
-    checkMan2 !== '***' && (checkSection = '品保');
+    checkMan2 !== '***' && (checkSection = 'QA');
     let dataURL = canvasElement.toDataURL('image/jpeg');
 
     if(formElement.reportValidity()){
@@ -562,9 +562,20 @@ function saveDate(){
         formData.append('shapeCount',JSON.stringify(counter));
         formData.append('lengthRangeNo',JSON.stringify(lengthRangeNo));
         // canvasデータを追加
-        checkSection === '品保' && formData.append('image', dataURL);
+        checkSection === 'QA' && formData.append('image', dataURL);
 
         event.preventDefault();
+
+        // CSRFトークンを取得（フォームまたはメタタグから）
+        let csrfToken = formData.get('csrf_token');
+        if (!csrfToken) {
+            // メタタグから取得
+            const metaTag = document.querySelector('meta[name="csrf-token"]');
+            if (metaTag) {
+                csrfToken = metaTag.getAttribute('content');
+                formData.append('csrf_token', csrfToken);
+            }
+        }
 
         //送信
         fetch('/vi',{
@@ -575,9 +586,9 @@ function saveDate(){
                 res.text().then(test => console.log('ok'))
                 location.reload();
             }else{
-                console.log('ng--')}
+                console.log('ng--', res.status, res.statusText)}
         })
-        .catch(err => console.log("NG"))
+        .catch(err => console.log("NG", err))
     }else{
         return false;
     }
@@ -615,14 +626,17 @@ async function checkDB(noCheck){
                 document.getElementById(resultData1[6]).value = resultData2[6];
                 //kind
                 document.getElementById(resultData1[8]).value = resultData2[8];
-                //weight
-                document.getElementById(resultData1[9]).value = resultData2[9].toFixed(1);
+                //weight (数値チェック)
+                const weight = resultData2[9];
+                document.getElementById(resultData1[9]).value = (weight !== null && weight !== '' && !isNaN(weight))
+                    ? parseFloat(weight).toFixed(1)
+                    : '';
                 //length
-                document.getElementById(resultData1[10]).value = resultData2[10];
+                document.getElementById(resultData1[10]).value = resultData2[10] || '';
                 //loss
-                document.getElementById(resultData1[11]).value = resultData2[11];
+                document.getElementById(resultData1[11]).value = resultData2[11] || '';
                 //memo
-                document.getElementById(resultData1[12]).value = resultData2[12];
+                document.getElementById(resultData1[12]).value = resultData2[12] || '';
                 //全長読み込みcanvas描写値
                 length_shape = document.getElementById(resultData1[10]).value
                 //データ変換
@@ -651,8 +665,13 @@ async function checkDB(noCheck){
                 redrawCanvas();
             }else{
                 //DBにデータがない場合
-                document.getElementById(resultData1[10]).value = '';
-                document.getElementById(resultData1[11]).value = '';
+                // セキュリティ対策: 要素が存在する場合のみ値を設定
+                if (resultData1[10] && document.getElementById(resultData1[10])) {
+                    document.getElementById(resultData1[10]).value = '';
+                }
+                if (resultData1[11] && document.getElementById(resultData1[11])) {
+                    document.getElementById(resultData1[11]).value = '';
+                }
                 length_shape = '';
                 shapebox = [];
                 shapebox_hand = [];
@@ -661,7 +680,10 @@ async function checkDB(noCheck){
                 currentIndex_hand = -1;
                 for(let i=0;i<2;i++){
                     var thisData = document.getElementById(`${i+1}`);
-                    thisData.innerHTML = counter[i];}
+                    if (thisData) {
+                        thisData.innerHTML = counter[i];
+                    }
+                }
                 redrawCanvas();
             }
         }else{

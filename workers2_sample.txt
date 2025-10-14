@@ -1,0 +1,5 @@
+# サンプル品質保証担当者リスト（実際のデータではありません）
+# 本番環境では workers2.txt を使用してください
+
+QA-Inspector-A
+QA-Inspector-B

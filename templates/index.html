@@ -3,23 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-    <title>K_process</title>
+    <title>ManufacturingApp</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css')}}">
 </head>
 <body>
 <div class="index">
-    <h1>K Process</h1>
+    <h1>Manufacturing App</h1>
     <h2>---INDEX---</h2>
-    <p><a href="{{ url_for('stocker') }}">▶ストッカー</a></p>
-    <p><a href="{{ url_for('cut') }}">▶新規CUT</a></p>
-    <p><a href="{{ url_for('add_cut') }}">▶追加カット</a></p>
-    <p><a href="{{ url_for('sp') }}">▶粗外周研削工程(SP)</a></p>
-    <p><a href="/">▶粗内周研削工程(SD)</a></p>
-    <p><a href="/">▶精外周研削工程(SC)</a></p>
-    <p><a href="{{ url_for('sh') }}">▶精内周研削工程(SH)</a></p>
-    <p><a href="/">▶セグメントカット工程</a></p>
     <p><a href="{{ url_for('vi') }}">▶Visual_Inspection</a></p>
-    <p><a href="{{ url_for('vad_ins') }}">▶VAD_Inspection</a></p>
     <p><a href="/">＠一覧</a></p>
 </div>
 </body>

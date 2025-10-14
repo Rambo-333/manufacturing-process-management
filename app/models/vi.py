@@ -1,9 +1,49 @@
-import sqlite3
-
+import logging
+from contextlib import contextmanager
 from sqlalchemy import Column, String, UniqueConstraint, Integer, Float, DateTime
+from sqlalchemy.exc import SQLAlchemyError
 from app.models.db import BaseDatabase, database
 from datetime import datetime
-import datetime
+
+# ロガー設定
+logger = logging.getLogger(__name__)
+
+# 定数定義
+SKIP_COLUMNS = {1, 2}  # created_at, updated_at のインデックス
+MAX_RECORDS = 50  # 最大取得レコード数
+
+# カラムの順序を固定（JavaScript側の期待する順序と一致させる）
+COLUMN_ORDER = [
+    'id', 'created_at', 'updated_at',
+    'processDay1', 'man1', 'processDay2', 'man2',
+    'lotno', 'kind', 'weight', 'length', 'loss', 'memo',
+    'shape', 'shapeHand', 'shapeCount', 'lengthRangeNo'
+]
+
+
+@contextmanager
+def get_db_session():
+    """
+    データベースセッションのコンテキストマネージャー
+
+    【機能】
+    - セッションの自動生成
+    - 成功時の自動コミット
+    - エラー時の自動ロールバック
+    - 確実なセッションクローズ
+
+    Yields:
+        session: データベースセッション
+    """
+    session = database.connect_db()
+    try:
+        yield session
+        session.commit()
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
 
 
 class VIS(BaseDatabase):
@@ -24,59 +64,156 @@ class VIS(BaseDatabase):
     shapeCount = Column(String)
     lengthRangeNo = Column(Integer)
 
+    # 許可されたフィールド（セキュリティ対策）
+    ALLOWED_FIELDS = {
+        'processDay1', 'man1', 'processDay2', 'man2', 'lotno',
+        'kind', 'weight', 'length', 'loss', 'memo',
+        'shape', 'shapeHand', 'shapeCount', 'lengthRangeNo'
+    }
+
     # リクエストフォームDB書き込み
-    @staticmethod
-    def get_or_create(data_list):
-        print(data_list)
-        session = database.connect_db()
-        table_name = VIS()
-        row = bool(session.query(VIS).filter(VIS.lotno == data_list['lotno']).first())
-        # データがある場合は上書きする
-        if row:
-            data = session.query(VIS).filter(VIS.lotno == data_list['lotno']).first()
-            for k, v in data_list.items():
-                if k != 'image':
-                    setattr(data, k, v)
-        else:
-            for k, v in data_list.items():
-                if k != 'image':
-                    setattr(table_name, k, v)
-            session.add(table_name)
-        session.commit()
-        session.close()
+    @classmethod
+    def get_or_create(cls, data_list):
+        """
+        データベースへの保存または更新（context manager使用）
+
+        Args:
+            data_list: フォームデータ
+
+        Raises:
+            ValueError: バリデーションエラー
+            SQLAlchemyError: データベースエラー
+
+        【改善点】
+        - context managerで確実なリソース管理
+        - ALLOWED_FIELDSホワイトリストでセキュリティ向上
+        - デバッグログに変更
+        """
+        logger.debug(f"Data list: {data_list}")
+
+        # ロット番号の存在チェック
+        lotno = data_list.get('lotno')
+        if not lotno:
+            raise ValueError("Lot number is required")
+
+        try:
+            with get_db_session() as session:
+                # 既存データの確認
+                data = session.query(cls).filter(cls.lotno == lotno).first()
+
+                if data:
+                    # 既存レコードの更新
+                    logger.info(f"Updating existing data for lotno: {lotno}")
+                    for k, v in data_list.items():
+                        if k in cls.ALLOWED_FIELDS:
+                            setattr(data, k, v)
+                else:
+                    # 新規レコードの作成
+                    logger.info(f"Creating new data for lotno: {lotno}")
+                    data = cls()
+                    for k, v in data_list.items():
+                        if k in cls.ALLOWED_FIELDS:
+                            setattr(data, k, v)
+                    session.add(data)
+
+                logger.info(f"Data saved successfully for lotno: {lotno}")
+
+        except ValueError as e:
+            logger.warning(f"Validation error in get_or_create: {e}")
+            raise
+
+        except SQLAlchemyError as e:
+            logger.error(f"Database error in get_or_create: {e}", exc_info=True)
+            raise Exception("Database error occurred")
+
+        except Exception as e:
+            logger.error(f"Unexpected error in get_or_create: {e}", exc_info=True)
+            raise
 
     # DB_read_one
-    @staticmethod
-    def read_data_one(lotno):
-        session = database.connect_db()
-        c_list = VIS.__table__.c.keys()
-        dbdata = session.query(VIS).filter(VIS.lotno == lotno).first()
-        if dbdata is None:
-            data = []
-        else:
-            data = ["" for j in range(len(c_list))]
-            for j, list_name in enumerate(c_list):
-                if j != 1 and j != 2:
-                    if getattr(dbdata, list_name) is not None:
-                        data[j] = getattr(dbdata, list_name)
-        session.close()
-        return c_list, data
+    @classmethod
+    def read_data_one(cls, lotno):
+        """
+        単一ロット番号のデータ取得（context manager使用）
+
+        Args:
+            lotno: ロット番号
+
+        Returns:
+            tuple: (カラムリスト, データリスト)
+
+        【改善点】
+        - context managerで確実なリソース管理
+        - COLUMN_ORDER定数で順序を固定
+        """
+        logger.debug(f"Reading data for lotno: {lotno}")
+
+        try:
+            with get_db_session() as session:
+                dbdata = session.query(cls).filter(cls.lotno == lotno).first()
+
+                if dbdata is None:
+                    logger.info(f"No data found for lotno: {lotno}")
+                    data = []
+                else:
+                    # COLUMN_ORDERに従ってデータを取得
+                    data = ["" for _ in range(len(COLUMN_ORDER))]
+                    for j, col_name in enumerate(COLUMN_ORDER):
+                        if j not in SKIP_COLUMNS:  # created_at, updated_atをスキップ
+                            value = getattr(dbdata, col_name, None)
+                            if value is not None:
+                                data[j] = value
+                    logger.info(f"Data found for lotno: {lotno}")
+                    logger.debug(f"Columns: {COLUMN_ORDER}")
+                    logger.debug(f"Data: {data}")
+
+                return COLUMN_ORDER, data
+
+        except SQLAlchemyError as e:
+            logger.error(f"Database error in read_data_one: {e}", exc_info=True)
+            raise Exception("Database error occurred")
+
+        except Exception as e:
+            logger.error(f"Unexpected error in read_data_one: {e}", exc_info=True)
+            raise
 
     # DB_read
-    @staticmethod
-    def read_data():
-        num = 50
-        session = database.connect_db()
-        # c_list = ['id', 'processDay1', 'man1', 'processDay2', 'man2', 'lotno', 'kind', 'weight', 'length', 'loss',
-        #                 'memo']
-        c_list = VIS.__table__.c.keys()
-        dbdata = session.query(VIS).order_by(VIS.id.desc()).limit(num).all()
-        data = []
-        for target in dbdata:
-            record = {}
-            for column in c_list:
-                if getattr(target, column) is not None:
-                    record[column] = getattr(target, column)
-            data.append(record)
-        session.close()
-        return c_list, data
+    @classmethod
+    def read_data(cls):
+        """
+        全データ取得（最新N件）（context manager使用）
+
+        Returns:
+            tuple: (カラムリスト, データリスト)
+
+        【改善点】
+        - context managerで確実なリソース管理
+        - MAX_RECORDS定数を使用
+        - COLUMN_ORDER定数で順序を固定
+        """
+        logger.debug(f"Reading all data (limit: {MAX_RECORDS})")
+
+        try:
+            with get_db_session() as session:
+                dbdata = session.query(cls).order_by(cls.id.desc()).limit(MAX_RECORDS).all()
+
+                data = []
+                for target in dbdata:
+                    record = {}
+                    # COLUMN_ORDERに従ってデータを取得
+                    for column in COLUMN_ORDER:
+                        value = getattr(target, column, None)
+                        if value is not None:
+                            record[column] = value
+                    data.append(record)
+
+                logger.info(f"Retrieved {len(data)} records")
+                return COLUMN_ORDER, data
+
+        except SQLAlchemyError as e:
+            logger.error(f"Database error in read_data: {e}", exc_info=True)
+            raise Exception("Database error occurred")
+
+        except Exception as e:
+            logger.error(f"Unexpected error in read_data: {e}", exc_info=True)
+            raise
