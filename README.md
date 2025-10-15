@@ -1,8 +1,7 @@
 # 製造工程管理システム
 
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
-![Flask](https://img.shields.io/badge/flask-3.0-green.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Flask](https://img.shields.io/badge/flask-2.3-green.svg)
 
 工場のDX(デジタルトランスフォーメーション)推進の一環として開発した、Web ベースの製造工程管理システムです。
 
@@ -33,7 +32,7 @@
 
 ### バックエンド
 - **Python 3.8+**
-- **Flask 3.0** - Webフレームワーク
+- **Flask 2.3** - Webフレームワーク
 - **SQLAlchemy** - ORM
 - **SQLite** - データベース
 
@@ -61,8 +60,8 @@ manufacturing-app/
 │   ├── controllers/
 │   │   └── guide.py          # メインアプリケーションルート
 │   ├── models/
-│   │   ├── database.py       # データベース接続
-│   │   └── vi.py             # 目視検査モデル
+│   │   ├── db.py              # データベース接続
+│   │   └── vi.py              # 目視検査モデル
 │   └── ...
 ├── static/
 │   ├── vi.css                # スタイルシート
@@ -93,8 +92,8 @@ manufacturing-app/
 
 1. **リポジトリのクローン:**
 ```bash
-git clone https://github.com/Rambo-333/manufacturing-app.git
-cd manufacturing-app
+git clone https://github.com/Rambo-333/manufacturing-process-management.git
+cd manufacturing-process-management
 ```
 
 2. **仮想環境の作成:**
@@ -121,7 +120,7 @@ python main.py
 
 6. **アクセス:**
 ```
-http://localhost:5000
+http://localhost:5050
 ```
 
 ## ⚙️ 設定
@@ -137,7 +136,7 @@ SECRET_KEY=your-secret-key-change-in-production
 
 # サーバー設定
 HOST=localhost
-PORT=5000
+PORT=5050
 DEBUG=True
 
 # セッション設定
@@ -192,9 +191,9 @@ LOG_LEVEL=INFO
 2. **フルスタック開発:** フロント・バック・DB・インフラまで一気通貫
 3. **自己学習力:** インターネットで調べながら独力で構築
 4. **AI活用能力(2025年):**
-   - セキュリティを大幅改善(20点 → 85点)
-   - 包括的なエラーハンドリング追加
-   - AIペアプログラミング(Cursor/Claude)でベストプラクティス実装
+   - セキュリティ対策(CSRF保護、パストラバーサル防止)を実装
+   - エラーハンドリングとロギングの追加
+   - AIペアプログラミング(Cursor/Claude)でコード品質向上
 
 ### コード品質の向上
 
@@ -202,12 +201,12 @@ LOG_LEVEL=INFO
 - CSRF保護の実装
 - パストラバーサル攻撃防止
 - ファイルサイズ検証の追加
+- 包括的なエラーハンドリングとロギング
 
 **アーキテクチャ改善:**
 - データベースセッションのContext Manager化
 - マジックナンバーの定数化
 - 重複コードの削減
-- 包括的なロギングの追加
 
 ## 📝 サンプルデータ
 
@@ -224,10 +223,6 @@ LOG_LEVEL=INFO
 - **認証機能:** ログインシステムなし(シングルユーザー環境)
 - **データベース:** SQLite使用(小規模展開向け)
 - **スケーラビリティ:** 単一工場向け設計(最大50同時接続)
-
-## 📄 ライセンス
-
-MITライセンス - 詳細はLICENSEファイルを参照
 
 ## 👤 作成者
 
