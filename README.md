@@ -76,7 +76,6 @@ manufacturing-app/
 ├── settings.py               # 設定ファイル
 ├── requirements.txt          # Python依存関係
 ├── .env.example              # 環境変数テンプレート
-├── app_sample.db             # サンプルデータベース
 ├── workers_sample.txt        # サンプル作業者リスト
 └── README.md
 ```
@@ -199,7 +198,6 @@ LOG_LEVEL=INFO
 
 リポジトリには以下のサンプルファイルが含まれています:
 
-- `app_sample.db` - サンプルレコード付きDBスキーマ
 - `workers_sample.txt` - サンプル作業者リスト
 - `workers2_sample.txt` - サンプル品質保証担当者リスト
 
@@ -211,7 +209,6 @@ LOG_LEVEL=INFO
 
 - **マルチユーザー対応:** 認証・認可機能の追加
 - **大規模展開:** PostgreSQL/MySQLへのDB移行
-- **複数拠点対応:** マイクロサービス化による水平スケーリング
 - **高度な分析:** BIツール連携によるデータ分析基盤構築
 
 ## 👤 作成者
